@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node ./dist/index.js",
+    "start": "npm run build && node ./dist/server.js",
+    "build": "tsc -p .",
     "gcp-build": "tsc -p ."
   },
   "keywords": [],
