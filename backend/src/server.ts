@@ -1,4 +1,11 @@
-import express = require('express');
+import express from 'express';
+import * as dotenv from 'dotenv';
+import { run } from './mongodb';
+dotenv.config();
+const uri = process.env.MONGODB_URI;
+console.log(uri);
+run(uri).then(() => {console.log('Connected to MongoDB')});
+
 const app = express();
 
 app.get('/', (req, res) => {
