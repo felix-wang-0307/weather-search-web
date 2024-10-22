@@ -5,4 +5,5 @@ package-lock.json
 .idea/
 node_modules/
 scripts
-dist
+dist/
+tmp/
