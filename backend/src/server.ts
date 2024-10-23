@@ -8,10 +8,7 @@ const BACKEND_URL = 'https://weather-search-web-571.wn.r.appspot.com';
 
 dotenv.config();
 
-const uri = process.env.MONGODB_URI;
-console.log(uri);
-
-run(uri).then(() => {
+run(process.env.MONGODB_URI).then(() => {
     console.log('Connected to MongoDB');
 });
 
