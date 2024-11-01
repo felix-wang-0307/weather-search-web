@@ -63,7 +63,7 @@ export async function fetchWeatherData(latitude: string, longitude: string): Pro
       return { success: true, data: data.data } ;
     } catch (failoverError) {
       console.error('Failed to fetch weather data from failover API key', failoverError);
-      return { success: false, error: 'Failed to fetch weather data' };
+      return { success: false, error: 'Failed to fetch weather data', statusCode: 500 };
     }
   }
 }
