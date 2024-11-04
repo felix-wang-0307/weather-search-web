@@ -1,0 +1,17 @@
+runtime: nodejs20
+
+env_variables:
+  NODE_ENV: 'production'
+
+entrypoint: npm run gc-dev
+
+handlers:
+  - url: /(.*\.(js|css|png|jpg|jpeg|gif|ico|svg))$
+    static_files: build/\1
+    upload: build/.*\.(js|css|png|jpg|jpeg|gif|ico|svg)$
+
+  - url: /.*
+    static_files: build/index.html
+    upload: build/index.html
+
+
