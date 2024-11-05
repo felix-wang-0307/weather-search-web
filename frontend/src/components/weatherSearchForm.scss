@@ -1,7 +1,7 @@
+
 .weather-search-form-container {
   width: max(900px, 70%);
   background-color: #f2f2f1;
-
   .weather-search-title {
     text-align: center;
     margin-bottom: 0;
@@ -11,7 +11,49 @@
     }
   }
 
-  .weather-search-form-area {
+  .weather-search-form {
+    @media (min-width: 576px) {
+      margin: 0;
+    }
 
+    @media (min-width: 768px) {
+      margin: 0 40px; // Increase margin for medium screens and up
+    }
+
+    @media (min-width: 992px) {
+      margin: 0 80px; // Larger margin for large screens and up
+    }
+
+    @media (min-width: 1200px) {
+      margin: 0 100px; // Extra large margin for very large screens
+    }
+
+    .required::after {
+      content: "*";
+      color: red;
+    }
+
+    .split-line {
+      width: 100%;  // todo: make the line occupy the full width of the container
+      border-bottom: 1px solid #cbcbcb;
+      @media (min-width: 576px) {
+        margin: 20px 0;
+      }
+
+      @media (min-width: 768px) {
+        margin: 20px -40px;
+        width: calc(100% + 80px);
+      }
+
+      @media (min-width: 992px) {
+        margin: 20px -80px;
+        width: calc(100% + 160px);
+      }
+
+      @media (min-width: 1200px) {
+        margin: 20px -100px;
+        width: calc(100% + 200px);
+      }
+    }
   }
 }
