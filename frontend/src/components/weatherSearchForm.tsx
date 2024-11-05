@@ -1,11 +1,14 @@
 import React from 'react';
 import { Form, Button, Container, Row, Col } from 'react-bootstrap';
+import "./weatherSearchForm.scss";
 
 const WeatherSearchForm = () => {
 	return (
-		<Container className="mt-4">
-			<h2>Weather Search 🌤️</h2>
-			<Form>
+		<Container className="mt-4 ps-4 pe-4 weather-search-form-container">
+			<div className="weather-search-title mt-2 mb-4">
+				<h2>Weather Search 🌤️</h2>
+			</div>
+			<Form className="weather-search-form">
 				{/* Street Field */}
 				<Form.Group as={Row} className="mb-3" controlId="formStreet">
 					<Form.Label as={Col} sm={2} xs={12}>
