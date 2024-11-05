@@ -1,4 +1,7 @@
-export async function fetchData(street, city, state, autoDetect) {
+import {IFormData, IGeocodingData} from "@/types";
+
+export async function fetchData(formData: IFormData) {
+	const {street, city, state, autoDetect} = formData;
 	if (autoDetect) {
 		// Fetch the user's location based on their IP address
 		const {latitude, longitude, locationString} = await fetchIpInfo();
@@ -6,7 +9,7 @@ export async function fetchData(street, city, state, autoDetect) {
 		return {locationString, weather};
 	} else {
 		// Fetch the user's location based on the form input
-		const geocoding = await fetchGeocoding(street, city, state);
+		const geocoding = await fetchGeocoding(formData);
 		// Destructure the latitude, longitude, and formatted_address properties from the geocoding object
 		const {latitude, longitude, formatted_address} = geocoding;
 		const weather = await fetchWeather(latitude, longitude);
@@ -14,7 +17,7 @@ export async function fetchData(street, city, state, autoDetect) {
 	}
 }
 
-async function fetchIpInfo(): Promise<{ locationString: string; latitude: number; longitude: number }> {
+async function fetchIpInfo(): Promise<IGeocodingData> {
 	const ipInfo = await fetch("https://ipinfo.io/json").then(res => res.json());
 	const {city, region, country, postal, loc} = ipInfo;
 	const locationString: string = `${city}, ${region} ${postal}, ${country}`;
@@ -22,7 +25,8 @@ async function fetchIpInfo(): Promise<{ locationString: string; latitude: number
 	return {locationString, latitude, longitude};
 }
 
-async function fetchGeocoding(street, city, state) {
+async function fetchGeocoding(formData: IFormData): Promise<IGeocodingData & {formatted_address: string}> {
+	const {street, city, state} = formData;
 	const address = `${street}, ${city}, ${state}`;
 	const url = `/geocoding?address=${address}`;
 	const data = await fetch(url).then(response => response.json());
