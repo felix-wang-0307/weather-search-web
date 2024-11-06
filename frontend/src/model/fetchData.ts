@@ -1,7 +1,7 @@
 import {IFormData, IGeocodingData} from "@/types";
 
 export async function fetchData(formData: IFormData) {
-	const {street, city, state, autoDetect} = formData;
+	const {autoDetect, ...values} = formData;
 	if (autoDetect) {
 		// Fetch the user's location based on their IP address
 		const {latitude, longitude, locationString} = await fetchIpInfo();
