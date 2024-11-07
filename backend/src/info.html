@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Backend Info</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+    }
+    table {
+      border-collapse: collapse;
+    }
+  </style>
+</head>
+<body>
+  <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;">
+    <h2>This is a backend server</h2>
+    <h3>Click <a href="https://weather-search-frontend-571.wm.r.appspot.com">HERE</a> to access the app frontend</h3>
+    <table>
+      <thead>
+        <th colspan="2">Mock API Calls</th>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+            <a href="/weather?latitude=32.67&longitude=123.45">
+              GET /weather
+            </a>
+          </td>
+          <td>Get weather of Los Angeles</td>
+        </tr>
+        <tr>
+          <td>GET /weather</td>
+          <td>Get weather of New York</td>
+        </tr>
+        <tr>
+          <td>GET /favorites</td>
+          <td>Get favorite list</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</body>
+</html>

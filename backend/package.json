@@ -4,8 +4,8 @@
   "description": "",
   "main": "src/server.ts",
   "scripts": {
-    "dev": "tsc && node dist/server.js",
-    "build": "tsc",
+    "dev": "npm run build && node dist/server.js",
+    "build": "tsc && cp src/info.html dist/",
     "deploy": "tsc && gcloud app deploy",
     "start": "node dist/server.js",
     "predeploy": "npm run build"

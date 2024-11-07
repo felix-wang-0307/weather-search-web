@@ -10,6 +10,6 @@
     "checkJs": false,  // Do not check JavaScript files
     "outDir": "./dist"
   },
-  "include": ["src/**/*.ts", "src/**/*.js"],  // Include both TS and JS files
+  "include": ["src/**/*.ts", "src/**/*.js", "src/info.html"],  // Include both TS and JS files
   "exclude": ["node_modules"]
 }
