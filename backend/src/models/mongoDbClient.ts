@@ -1,16 +1,20 @@
-import { Db, MongoClient, ServerApiVersion } from "mongodb";
+import { Db, MongoClient } from "mongodb";
 import dotenv from "dotenv";
 dotenv.config();
 
 const MONGODB_URI = process.env.MONGODB_URI;
-
 class MongoDbClient {
   client: MongoClient;
   database: Db;
+  isConnected: boolean = false;
+
   constructor(dbName = "weather") {
     this.client = new MongoClient(MONGODB_URI);
     this.connect().then(() => {
       console.log("Connected to MongoDB");
+      this.isConnected = true;
+    }).catch((err) => {
+      console.error(err);
     });
     this.database = this.client.db(dbName);
   }
@@ -25,4 +29,5 @@ class MongoDbClient {
   }
 }
 
-export const client = new MongoDbClient();
+const client = new MongoDbClient();
+export { client };
