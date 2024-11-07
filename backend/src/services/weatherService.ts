@@ -1,4 +1,4 @@
-/// <reference path="./service.d.ts" />
+/// <reference path="./weatherService.d.ts" />
 import dotenv from "dotenv";
 dotenv.config();
 
