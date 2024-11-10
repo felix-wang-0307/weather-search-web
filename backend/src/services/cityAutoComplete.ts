@@ -34,11 +34,16 @@ export async function getAutoCompleteList(
     if (status !== "OK" && status !== "ZERO_RESULTS") {
       throw new Error("Failed to fetch autocomplete data");
     }
-    const cityInfo: ICityInfo[] = predictions.map((prediction: any) => {
+    const cityInfo: ICityInfo[] = [];
+    for (const prediction of predictions) {
+      const stateCountry = prediction.structured_formatting.secondary_text;
+      if (!stateCountry.includes("USA")) {
+        continue;
+      }
       const city = prediction.structured_formatting.main_text;
       const state = prediction.structured_formatting.secondary_text.split(", ")[0];
-      return { city, state };
-    });
+      cityInfo.push({ city, state });
+    }
     return { success: true, data: cityInfo, statusCode: 200 };
   } catch (error) {
     return {
