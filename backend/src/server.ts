@@ -7,6 +7,7 @@ import {
   getFavorites,
   addFavorite,
   deleteFavorite,
+  getAutoComplete
 } from './controllers';
 
 const FRONTEND_URL = "https://weather-search-frontend-571.wm.r.appspot.com";
@@ -29,6 +30,7 @@ app.get("/geocoding", getGeocode);
 app.get("/favorites", getFavorites);
 app.post("/favorites", addFavorite);
 app.delete("/favorites", deleteFavorite);
+app.get("/autocomplete", getAutoComplete);
 
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
