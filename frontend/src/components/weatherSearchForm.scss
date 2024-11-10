@@ -58,9 +58,17 @@
   }
 }
 
-#state-select {
+div.MuiAutocomplete-root:has(#state-select) {
+  // To make the dropdown list occupy the full width of the container
   width: 100%;
   @media (min-width: 576px) {
     width: 50%;
   }
 }
+
+// div.MuiPopper-root:has(#state-select-listbox), #state-select-listbox {
+//   width: 100%;
+//   @media (min-width: 576px) {
+//     width: 50%;
+//   }
+// }
