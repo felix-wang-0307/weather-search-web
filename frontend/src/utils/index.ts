@@ -1,4 +1,5 @@
 import { v4 as uuidv4 } from 'uuid';
+import states from '../data/states.json';
 
 function toUrlParams(params: Record<string, any>): string {
   return Object.keys(params)
@@ -27,3 +28,11 @@ export const getUserId = () => {
   }
   return userId;
 };
+
+export const stateToAbbreviation = (stateName: string): string => {
+  return states[stateName] || '';
+}
+
+export const abbreviationToState = (stateAbbreviation: string): string => {
+  return Object.keys(states).find(key => states[key] === stateAbbreviation) || '';
+}
