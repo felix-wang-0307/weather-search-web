@@ -1,6 +1,9 @@
-import { IFormData, IGeocodingData } from "@/types";
+import { IFormData, IGeocodingData, IWeatherData } from "@/types";
 
-export async function fetchData(formData: IFormData) {
+export async function fetchData(formData: IFormData): Promise<{
+	locationString: string;
+	weather: IWeatherData;
+}> {
   const { autoDetect } = formData;
   if (autoDetect) {
     // Fetch the user's location based on their IP address
@@ -40,7 +43,7 @@ async function fetchGeocoding(
   return data.data;
 }
 
-async function fetchWeather(latitude, longitude) {
+async function fetchWeather(latitude: number, longitude: number): Promise<IWeatherData> {
   const url = `/weather?latitude=${latitude}&longitude=${longitude}&`;
   const data = await fetch(url).then((response) => response.json());
   if (!data.success || !data.data?.timelines?.length) {
