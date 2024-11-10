@@ -17,9 +17,13 @@ dotenv.config();
 
 const app = express();
 
-app.use(
-  cors({ origin: FRONTEND_URL, credentials: true })
-);
+if (process.env.ENV === 'development') {
+  app.use(cors()); // Allow CORS for all hosts during development
+} else {
+  app.use(
+    cors({ origin: FRONTEND_URL, credentials: true })
+  );
+}
 
 app.get("/", (req, res) => {
   res.sendFile("info.html", { root: __dirname });
