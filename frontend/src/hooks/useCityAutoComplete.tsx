@@ -2,6 +2,7 @@ import { useState, useCallback, useEffect } from "react";
 import { Autocomplete, debounce } from "@mui/material";
 import { getAutoCompleteList } from "../model/cityAutoComplete";
 import { ICityInfo } from "../types";
+import { abbreviationToState } from "../utils";
 
 const useCityAutoComplete = () => {
   const [cityValue, setCityValue] = useState("");
@@ -10,11 +11,14 @@ const useCityAutoComplete = () => {
   const [cityOptions, setCityOptions] = useState<ICityInfo[]>([]);
 
   // Debounce the input change to reduce the number of API calls
-  const debouncedFetchCityOptions = useCallback(debounce((input) => {
-    getAutoCompleteList(input).then((data) => {
-      setCityOptions(data);
-    });
-  }, 300), []);
+  const debouncedFetchCityOptions = useCallback(
+    debounce((input) => {
+      getAutoCompleteList(input).then((data) => {
+        setCityOptions(data);
+      });
+    }, 300),
+    []
+  );
 
   useEffect(() => {
     if (cityValue.trim() !== "") {
@@ -24,7 +28,10 @@ const useCityAutoComplete = () => {
     }
   }, [cityValue, debouncedFetchCityOptions]);
 
-  const handleInputChange = (event: React.ChangeEvent<{}>, newInputValue: string) => {
+  const handleInputChange = (
+    event: React.ChangeEvent<{}>,
+    newInputValue: string
+  ) => {
     setCityValue(newInputValue);
   };
 
@@ -45,7 +52,7 @@ const useCityAutoComplete = () => {
     handleInputChange,
     isCityValid,
     setIsCityValid,
-    setCityStateValue
+    setCityStateValue,
   };
 };
 
@@ -55,7 +62,7 @@ const CityAutoComplete = ({
   handleInputChange,
   isCityValid,
   setIsCityValid,
-  setCityStateValue
+  setCityStateValue,
 }) => (
   <Autocomplete
     freeSolo
@@ -90,8 +97,12 @@ const CityAutoComplete = ({
       const value = (e.nativeEvent?.target as HTMLInputElement)?.value || "";
       setIsCityValid(value.trim() !== "");
     }}
+    // onInputChange is triggered when the input value changes (including typing and selecting)
     onInputChange={handleInputChange}
-    onChange={(e, value: ICityInfo) => setCityStateValue(value.state)}
+    // onChange is triggered ONLY when an option is selected
+    onChange={(e, value: ICityInfo) =>
+      setCityStateValue(abbreviationToState(value.state))
+    }
   />
 );
 

@@ -16,7 +16,7 @@ const WeatherSearchForm = ({ onSubmit }) => {
     resetState();
   };
 
-  useEffect(() => { 
+  useEffect(() => {
     setStateValue(cityStateValue);
   }, [cityStateValue, setStateValue]);
 
@@ -55,7 +55,7 @@ const WeatherSearchForm = ({ onSubmit }) => {
             City
           </Form.Label>
           <Col sm={10} xs={12}>
-            <CityAutoComplete {...params}/>
+            <CityAutoComplete {...params} />
           </Col>
         </Form.Group>
 
