@@ -9,3 +9,12 @@ export interface IGeocodingData {
 	latitude: number;
 	longitude: number;
 }
+
+interface ICityInfo {
+  city: string;
+  state: string;
+}
+
+export interface IWeatherData {
+
+}
