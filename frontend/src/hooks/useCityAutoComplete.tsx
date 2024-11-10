@@ -63,6 +63,7 @@ const CityAutoComplete = ({
   isCityValid,
   setIsCityValid,
   setCityStateValue,
+  disabled = false,
 }) => (
   <Autocomplete
     freeSolo
@@ -80,6 +81,8 @@ const CityAutoComplete = ({
       <div ref={params.InputProps.ref} className="">
         <input
           {...params.inputProps}
+          disabled={disabled}
+          autoComplete="new-password"  // TODO: remove later
           type="text"
           className={`form-control ${!isCityValid ? "is-invalid" : ""}`}
         />

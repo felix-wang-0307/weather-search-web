@@ -24,12 +24,17 @@ const useStateSelect = (initialValue = "") => {
     stateAbbreviation,
     setStateValue,
     isStateValid,
-    setIsStateValid
+    setIsStateValid,
   };
 };
 
-
-const StateSelect = ({ stateValue, setStateValue, isStateValid, setIsStateValid }) => (
+const StateSelect = ({
+  stateValue,
+  setStateValue,
+  isStateValid,
+  setIsStateValid,
+  disabled = false,
+}) => (
   <Autocomplete
     freeSolo
     value={stateValue}
@@ -40,9 +45,11 @@ const StateSelect = ({ stateValue, setStateValue, isStateValid, setIsStateValid 
       <div ref={params.InputProps.ref} className="">
         <input
           {...params.inputProps}
+          disabled={disabled}
+          autoComplete="new-password"
+          placeholder="Select a state"
           type="text"
           className={`form-control ${!isStateValid ? "is-invalid" : ""}`}
-          autoComplete="off"
         />
       </div>
     )}

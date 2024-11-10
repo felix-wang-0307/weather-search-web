@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import useStateSelect from "../hooks/useStateSelect";
 import { useCityAutoComplete } from "../hooks/useCityAutoComplete";
@@ -6,16 +6,31 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "./weatherSearchForm.scss";
 
 const WeatherSearchForm = ({ onSubmit }) => {
+  const [streetValue, setStreetValue] = useState("");
   const [isStreetValid, setIsStreetValid] = useState(true);
-  const { CityAutoComplete, cityStateValue, resetCity, ...cityAutoCompleteProps } = useCityAutoComplete();
-  const { isCityValid } = cityAutoCompleteProps;
+  const {
+    CityAutoComplete,
+    cityStateValue,
+    resetCity,
+    ...cityAutoCompleteProps
+  } = useCityAutoComplete();
+  const { cityValue, isCityValid } = cityAutoCompleteProps;
   const { StateSelect, resetState, ...stateSelectProps } = useStateSelect();
-  const { setStateValue } = stateSelectProps;
+  const { stateValue, setStateValue } = stateSelectProps;
+
+  const [autoDetect, setAutoDetect] = useState(false);
+
+  const isSearchEnabled = useMemo(
+    () => (streetValue && cityValue && stateValue) || autoDetect,
+    [streetValue, cityValue, stateValue, autoDetect]
+  );
 
   const handleReset = () => {
     setIsStreetValid(true);
+    setStreetValue("");
     resetCity();
     resetState();
+    setAutoDetect(false);
   };
 
   useEffect(() => {
@@ -40,7 +55,11 @@ const WeatherSearchForm = ({ onSubmit }) => {
           <Col sm={10} xs={12}>
             <Form.Control
               type="text"
+              disabled={autoDetect}
               required
+              autoComplete="new-password"
+              value={streetValue}
+              onChange={(e) => setStreetValue(e.target.value)}
               onBlur={(e) => {
                 setIsStreetValid(e.target.value.trim() !== "");
               }}
@@ -57,8 +76,14 @@ const WeatherSearchForm = ({ onSubmit }) => {
             City
           </Form.Label>
           <Col sm={10} xs={12}>
-            <CityAutoComplete {...cityAutoCompleteProps} />
-            <Form.Control.Feedback type="invalid" style={{ display: isCityValid ? 'none' : 'block' }}>
+            <CityAutoComplete
+              {...cityAutoCompleteProps}
+              disabled={autoDetect}
+            />
+            <Form.Control.Feedback
+              type="invalid"
+              style={{ display: isCityValid ? "none" : "block" }}
+            >
               Please enter a valid city.
             </Form.Control.Feedback>
           </Col>
@@ -69,7 +94,7 @@ const WeatherSearchForm = ({ onSubmit }) => {
             State
           </Form.Label>
           <Col sm={10} xs={12}>
-            <StateSelect {...stateSelectProps} />
+            <StateSelect {...stateSelectProps} disabled={autoDetect} />
             <Form.Control.Feedback type="invalid">
               Please enter a valid state.
             </Form.Control.Feedback>
@@ -81,13 +106,23 @@ const WeatherSearchForm = ({ onSubmit }) => {
         <Form.Group as={Row} className="mb-3" controlId="formOptions">
           <Container className="d-flex justify-content-center gap-2">
             <Form.Label className="required">Autodetect Location</Form.Label>
-            <Form.Check type="checkbox" label="Current Location" />
+            <Form.Check
+              type="checkbox"
+              label="Current Location"
+              checked={autoDetect}
+              onChange={(e) => setAutoDetect(e.target.checked)}
+            />
           </Container>
         </Form.Group>
 
         <Form.Group as={Row} className="mb-3">
           <Container className="d-flex justify-content-center gap-2">
-            <Button variant="primary" type="submit" className="me-2">
+            <Button
+              variant="primary"
+              type="submit"
+              className="me-2"
+              disabled={!isSearchEnabled}
+            >
               <i className="bi bi-search"></i>Search
             </Button>
             <Button variant="secondary" type="reset">
