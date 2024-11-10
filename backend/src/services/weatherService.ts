@@ -1,7 +1,4 @@
 /// <reference path="./weatherService.d.ts" />
-import dotenv from "dotenv";
-dotenv.config();
-
 const WEATHER_API = "https://api.tomorrow.io/v4/timelines";
 const GOOGLE_MAPS_API = "https://maps.googleapis.com/maps/api/geocode/json";
 
