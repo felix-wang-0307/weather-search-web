@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import useStateSelect from "../hooks/useStateSelect";
 import { useCityAutoComplete } from "../hooks/useCityAutoComplete";
@@ -7,14 +7,18 @@ import "./weatherSearchForm.scss";
 
 const WeatherSearchForm = ({ onSubmit }) => {
   const [isStreetValid, setIsStreetValid] = useState(true);
-  const { CityAutoComplete, ...params } = useCityAutoComplete();
-  const { StateSelect, resetState } = useStateSelect();
+  const { CityAutoComplete, cityStateValue, resetCity, ...params } = useCityAutoComplete();
+  const { StateSelect, setStateValue, resetState } = useStateSelect();
 
   const handleReset = () => {
     setIsStreetValid(true);
-    params.resetCity();
+    resetCity();
     resetState();
   };
+
+  useEffect(() => { 
+    setStateValue(cityStateValue);
+  }, [cityStateValue, setStateValue]);
 
   return (
     <Container className="mt-sm-4 weather-search-form-container">

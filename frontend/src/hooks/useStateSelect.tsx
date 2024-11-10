@@ -43,7 +43,7 @@ const useStateSelect = (initialValue = "") => {
     setIsStateValid(true);
   };
 
-  return { StateSelect, stateValue, isStateValid, resetState };
+  return { StateSelect, stateValue, setStateValue, isStateValid, resetState };
 };
 
 export default useStateSelect;

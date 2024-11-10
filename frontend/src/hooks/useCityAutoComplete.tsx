@@ -5,18 +5,16 @@ import { ICityInfo } from "../types";
 
 const useCityAutoComplete = () => {
   const [cityValue, setCityValue] = useState("");
+  const [cityStateValue, setCityStateValue] = useState("");
   const [isCityValid, setIsCityValid] = useState(true);
   const [cityOptions, setCityOptions] = useState<ICityInfo[]>([]);
 
   // Debounce the input change to reduce the number of API calls
-  const debouncedFetchCityOptions = useCallback(
-    debounce((input) => {
-      getAutoCompleteList(input).then((data) => {
-        setCityOptions(data);
-      });
-    }, 300),
-    [] // Dependencies are empty so debounce is only created once
-  );
+  const debouncedFetchCityOptions = useCallback(debounce((input) => {
+    getAutoCompleteList(input).then((data) => {
+      setCityOptions(data);
+    });
+  }, 300), []);
 
   useEffect(() => {
     if (cityValue.trim() !== "") {
@@ -26,8 +24,7 @@ const useCityAutoComplete = () => {
     }
   }, [cityValue, debouncedFetchCityOptions]);
 
-  const handleInputChange = (event, newInputValue) => {
-    console.log("handleInputChange", newInputValue);
+  const handleInputChange = (event: React.ChangeEvent<{}>, newInputValue: string) => {
     setCityValue(newInputValue);
   };
 
@@ -36,7 +33,20 @@ const useCityAutoComplete = () => {
     setIsCityValid(true);
   };
 
-  return { CityAutoComplete, cityValue, isCityValid, setIsCityValid, handleInputChange, cityOptions, resetCity };
+  // The hook returns an object with the following properties
+  return {
+    // The following properties are used by WeatherSearchForm
+    CityAutoComplete,
+    resetCity,
+    cityStateValue,
+    // The following properties are used by CityAutoComplete
+    cityValue,
+    cityOptions,
+    handleInputChange,
+    isCityValid,
+    setIsCityValid,
+    setCityStateValue
+  };
 };
 
 const CityAutoComplete = ({
@@ -45,6 +55,7 @@ const CityAutoComplete = ({
   handleInputChange,
   isCityValid,
   setIsCityValid,
+  setCityStateValue
 }) => (
   <Autocomplete
     freeSolo
@@ -80,6 +91,7 @@ const CityAutoComplete = ({
       setIsCityValid(value.trim() !== "");
     }}
     onInputChange={handleInputChange}
+    onChange={(e, value: ICityInfo) => setCityStateValue(value.state)}
   />
 );
 
