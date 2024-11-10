@@ -1,72 +1,86 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { Autocomplete, debounce } from "@mui/material";
 import { getAutoCompleteList } from "../model/cityAutoComplete";
 import { ICityInfo } from "../types";
 
-
 const useCityAutoComplete = () => {
-  
   const [cityValue, setCityValue] = useState("");
-  const [cityOptions, setCityOptions] = useState<ICityInfo[]>([]);
   const [isCityValid, setIsCityValid] = useState(true);
+  const [cityOptions, setCityOptions] = useState<ICityInfo[]>([]);
 
-  const CityAutoComplete = useCallback(
-    () => (
-      <Autocomplete
-        freeSolo
-        value={cityValue}
-        options={cityOptions.map((city) => city.city)}
-        id="city-select"
-        disableClearable
-        renderInput={(params) => (
-          <div ref={params.InputProps.ref} className="">
-            <input
-              {...params.inputProps}
-              type="text"
-              className={`form-control ${!isCityValid ? "is-invalid" : ""}`}
-              autoComplete="off"
-            />
-          </div>
-        )}
-        renderOption={(props, option) => {
-          const entry = cityOptions.find((city) => city.city === option);
-          return (
-            <li {...props} key={option}>
-              {entry?.city}, {entry?.state}
-            </li>
-          );
-        }}
-        onBlur={(e) => {
-          const value =
-            (e.nativeEvent?.target as HTMLInputElement)?.value || "";
-          setIsCityValid(value.trim() !== "");
-        }}
-        onInputChange={debounce((_, value) => {
-          console.log("ONINPUTCHANGE");
-          if (value !== cityValue) {
-            setCityValue(value);
-            if (value.trim() === "") {
-              setCityOptions([]);
-              return;
-            }
-            console.log(value);
-            getAutoCompleteList(value).then((data) => {
-              console.log(data);
-              setCityOptions(data);
-            });
-          }
-        }, 300)}
-      />
-    ),
-    [cityValue, isCityValid, cityOptions]
+  // Debounce the input change to reduce the number of API calls
+  const debouncedFetchCityOptions = useCallback(
+    debounce((input) => {
+      getAutoCompleteList(input).then((data) => {
+        setCityOptions(data);
+      });
+    }, 300),
+    [] // Dependencies are empty so debounce is only created once
   );
+
+  useEffect(() => {
+    if (cityValue.trim() !== "") {
+      debouncedFetchCityOptions(cityValue);
+    } else {
+      setCityOptions([]);
+    }
+  }, [cityValue, debouncedFetchCityOptions]);
+
+  const handleInputChange = (event, newInputValue) => {
+    console.log("handleInputChange", newInputValue);
+    setCityValue(newInputValue);
+  };
 
   const resetCity = () => {
     setCityValue("");
     setIsCityValid(true);
   };
 
-  return { CityAutoComplete, cityValue, isCityValid, cityOptions, resetCity };
+  return { CityAutoComplete, cityValue, isCityValid, setIsCityValid, handleInputChange, cityOptions, resetCity };
 };
 
-export default useCityAutoComplete;
+const CityAutoComplete = ({
+  cityValue,
+  cityOptions,
+  handleInputChange,
+  isCityValid,
+  setIsCityValid,
+}) => (
+  <Autocomplete
+    freeSolo
+    value={cityValue}
+    options={cityOptions}
+    getOptionKey={(option) =>
+      typeof option === "string" ? option : option.city + ", " + option.state
+    }
+    getOptionLabel={(option) =>
+      typeof option === "string" ? option : option.city
+    }
+    id="city-select"
+    disableClearable
+    renderInput={(params) => (
+      <div ref={params.InputProps.ref} className="">
+        <input
+          {...params.inputProps}
+          type="text"
+          className={`form-control ${!isCityValid ? "is-invalid" : ""}`}
+        />
+      </div>
+    )}
+    renderOption={(props, option) => {
+      const key = option.city + ", " + option.state;
+      return (
+        <li {...props} key={key}>
+          {key}
+        </li>
+      );
+    }}
+    onBlur={(e) => {
+      const value = (e.nativeEvent?.target as HTMLInputElement)?.value || "";
+      setIsCityValid(value.trim() !== "");
+    }}
+    onInputChange={handleInputChange}
+  />
+);
+
+export { useCityAutoComplete, CityAutoComplete };

@@ -3,6 +3,9 @@ import { ICityInfo } from "@/types";
 const BACKEND = "https://weather-search-web-571.wn.r.appspot.com/";
 
 export async function getAutoCompleteList(input: string): Promise<ICityInfo[]> {
+  if (input.trim() === "") {
+    return [];
+  }
   try {
     const response = await fetch(`${BACKEND}autocomplete?input=${input}`, {
       mode: 'cors'

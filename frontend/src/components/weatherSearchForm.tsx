@@ -1,19 +1,18 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import useStateSelect from "../hooks/useStateSelect";
-import useCityAutoComplete from "../hooks/useCityAutoComplete";
+import { useCityAutoComplete } from "../hooks/useCityAutoComplete";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./weatherSearchForm.scss";
 
 const WeatherSearchForm = ({ onSubmit }) => {
   const [isStreetValid, setIsStreetValid] = useState(true);
-  const [isCityValid, setIsCityValid] = useState(true);
-  const { CityAutoComplete, resetCity, cityOptions } = useCityAutoComplete();
+  const { CityAutoComplete, ...params } = useCityAutoComplete();
   const { StateSelect, resetState } = useStateSelect();
 
   const handleReset = () => {
     setIsStreetValid(true);
-    setIsCityValid(true);
+    params.resetCity();
     resetState();
   };
 
@@ -52,7 +51,7 @@ const WeatherSearchForm = ({ onSubmit }) => {
             City
           </Form.Label>
           <Col sm={10} xs={12}>
-            <CityAutoComplete />
+            <CityAutoComplete {...params}/>
           </Col>
         </Form.Group>
 
