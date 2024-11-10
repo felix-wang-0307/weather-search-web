@@ -5,6 +5,7 @@ import "./App.scss";
 import { IFormData } from "./types";
 
 const BACKEND = "https://weather-search-web-571.wn.r.appspot.com/";
+console.log(BACKEND);
 
 function App() {
   const submitForm = useCallback(((event: FormEvent) => {
