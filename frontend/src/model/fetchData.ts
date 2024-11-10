@@ -1,5 +1,7 @@
 import { IFormData, IGeocodingData, IWeatherData } from "@/types";
 
+const BACKEND = "https://weather-search-web-571.wn.r.appspot.com/";
+
 export async function fetchData(formData: IFormData): Promise<{
 	locationString: string;
 	weather: IWeatherData;
@@ -35,7 +37,7 @@ async function fetchGeocoding(
 ): Promise<IGeocodingData & { formatted_address: string }> {
   const { street, city, state } = formData;
   const address = `${street}, ${city}, ${state}`;
-  const url = `/geocoding?address=${address}`;
+  const url = `${BACKEND}/geocoding?address=${address}`;
   const data = await fetch(url).then((response) => response.json());
   if (!data.success) {
     throw new Error("Failed to fetch geocoding data");
@@ -44,7 +46,7 @@ async function fetchGeocoding(
 }
 
 async function fetchWeather(latitude: number, longitude: number): Promise<IWeatherData> {
-  const url = `/weather?latitude=${latitude}&longitude=${longitude}&`;
+  const url = `${BACKEND}/weather?latitude=${latitude}&longitude=${longitude}&`;
   const data = await fetch(url).then((response) => response.json());
   if (!data.success || !data.data?.timelines?.length) {
     throw new Error("Failed to fetch weather data");
