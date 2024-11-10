@@ -1,9 +1,11 @@
 import { IFormData, IGeocodingData, IWeatherData } from "@/types";
+import { abbreviationToState } from "../utils";
 
 const BACKEND = "https://weather-search-web-571.wn.r.appspot.com/";
 
 export async function fetchData(formData: IFormData): Promise<{
-	locationString: string;
+	city: string;
+	state: string;
 	weather: IWeatherData;
 }> {
   const { autoDetect } = formData;
@@ -11,14 +13,14 @@ export async function fetchData(formData: IFormData): Promise<{
     // Fetch the user's location based on their IP address
     const { latitude, longitude, locationString } = await fetchIpInfo();
     const weather = await fetchWeather(latitude, longitude);
-    return { locationString, weather };
+    return { ...extractCityState(locationString), weather };
   } else {
     // Fetch the user's location based on the form input
     const geocoding = await fetchGeocoding(formData);
     // Destructure the latitude, longitude, and formatted_address properties from the geocoding object
-    const { latitude, longitude, formatted_address } = geocoding;
+    const { latitude, longitude, formattedAddress } = geocoding;
     const weather = await fetchWeather(latitude, longitude);
-    return { locationString: formatted_address, weather };
+    return { ...extractCityState(formattedAddress), weather };
   }
 }
 
@@ -34,7 +36,7 @@ async function fetchIpInfo(): Promise<IGeocodingData> {
 
 async function fetchGeocoding(
   formData: IFormData
-): Promise<IGeocodingData & { formatted_address: string }> {
+): Promise<IGeocodingData & { formattedAddress: string }> {
   const { street, city, state } = formData;
   const address = `${street}, ${city}, ${state}`;
   const url = `${BACKEND}/geocoding?address=${address}`;
@@ -52,4 +54,13 @@ async function fetchWeather(latitude: number, longitude: number): Promise<IWeath
     throw new Error("Failed to fetch weather data");
   }
   return data.data;
+}
+
+function extractCityState(locationString: string): { city: string; state: string } {
+	// locationString is like "[USC (optional), ]Los Angeles, CA 90007, USA"
+	const partitions = locationString.split(", ");
+	const city = partitions[partitions.length - 3];  // "Los Angeles"
+	const stateValue = partitions[partitions.length - 2].split(" ")[0];  // "CA" or "California"
+	const state = abbreviationToState(stateValue) || stateValue;  // "California"
+	return { city, state };
 }
