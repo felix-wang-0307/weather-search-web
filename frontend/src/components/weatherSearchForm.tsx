@@ -7,9 +7,10 @@ import "./weatherSearchForm.scss";
 
 const WeatherSearchForm = ({ onSubmit }) => {
   const [isStreetValid, setIsStreetValid] = useState(true);
-  const { CityAutoComplete, cityStateValue, resetCity, ...params } = useCityAutoComplete();
-  const { isCityValid } = params;
-  const { StateSelect, setStateValue, resetState } = useStateSelect();
+  const { CityAutoComplete, cityStateValue, resetCity, ...cityAutoCompleteProps } = useCityAutoComplete();
+  const { isCityValid } = cityAutoCompleteProps;
+  const { StateSelect, resetState, ...stateSelectProps } = useStateSelect();
+  const { setStateValue } = stateSelectProps;
 
   const handleReset = () => {
     setIsStreetValid(true);
@@ -56,7 +57,7 @@ const WeatherSearchForm = ({ onSubmit }) => {
             City
           </Form.Label>
           <Col sm={10} xs={12}>
-            <CityAutoComplete {...params} />
+            <CityAutoComplete {...cityAutoCompleteProps} />
             <Form.Control.Feedback type="invalid" style={{ display: isCityValid ? 'none' : 'block' }}>
               Please enter a valid city.
             </Form.Control.Feedback>
@@ -68,7 +69,7 @@ const WeatherSearchForm = ({ onSubmit }) => {
             State
           </Form.Label>
           <Col sm={10} xs={12}>
-            <StateSelect />
+            <StateSelect {...stateSelectProps} />
             <Form.Control.Feedback type="invalid">
               Please enter a valid state.
             </Form.Control.Feedback>
