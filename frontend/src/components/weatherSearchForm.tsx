@@ -1,7 +1,6 @@
-import React, { useState, useRef, useCallback } from "react";
+import React, { useState } from "react";
 import useStateSelect from "../hooks/useStateSelect";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
-import { Autocomplete } from "@mui/material";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./weatherSearchForm.scss";
 
