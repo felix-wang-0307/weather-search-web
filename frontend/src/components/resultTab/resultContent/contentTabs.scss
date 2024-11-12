@@ -1,0 +1,18 @@
+.tab-button, .tab-button:hover {
+  background-color: #ffffff;
+  color: #316cf4;
+  border: none;
+  border-bottom: 1px solid #cbcbcb;
+  border-radius: 5px 5px 0 0;
+  transition: none;
+}
+
+.tab-button:hover {
+  border: 1px solid lightgrey;
+}
+
+.active-tab, .active-tab:hover {
+  color: #0e0e0e;
+  border: 1px solid #cbcbcb;
+  border-bottom: 1px solid #ffffff;
+}

@@ -3,6 +3,7 @@ import { ResultHeader } from './resultHeader';
 import { AppContext } from '../../appContext';
 import { IFormData } from '../../types';
 import { Container } from 'react-bootstrap';
+import ResultContent from './resultContent';
 
 export default function ResultTab ({ searchStatus }) {
   const { city, state } = useContext<IFormData>(AppContext);
@@ -10,6 +11,7 @@ export default function ResultTab ({ searchStatus }) {
   return (
     <Container>
       <ResultHeader />
+      <ResultContent />
     </Container>
   )
 }
