@@ -1,8 +1,8 @@
 export interface IFormData {
-	street: string;
-	city: string;
-	state: string;
-	autoDetect: boolean;
+	street?: string;
+	city?: string;
+	state?: string;
+	autoDetect?: boolean;
 }
 export interface IGeocodingData {
 	locationString: string;
@@ -48,4 +48,9 @@ export interface IWeatherTimeline {
 export interface IWeatherData {
   timelines: IWeatherTimeline[];
   warnings: any[];
+}
+
+export interface ITabRef {
+  setActiveTab: (tab: string) => void;
+  getActiveTab: () => string;
 }
