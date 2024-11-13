@@ -101,7 +101,7 @@ function App() {
         <section className="mt-3 w-100">
           {activeTab === "results" &&
             ((searchStatus === "success" && (
-              <ResultTab searchStatus={searchStatus} />
+              <ResultTab />
             )) ||
               (searchStatus === "failed" && (
                 <Alert variant="danger" className="container">
