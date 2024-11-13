@@ -4,8 +4,9 @@ import useStateSelect from "../hooks/useStateSelect";
 import { useCityAutoComplete } from "../hooks/useCityAutoComplete";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./weatherSearchForm.scss";
+import { on } from "events";
 
-const WeatherSearchForm = ({ onSubmit }) => {
+const WeatherSearchForm = ({ onSubmit, onReset }) => {
   const [streetValue, setStreetValue] = useState("");
   const [isStreetValid, setIsStreetValid] = useState(true);
   const {
@@ -26,6 +27,7 @@ const WeatherSearchForm = ({ onSubmit }) => {
   );
 
   const handleReset = () => {
+    onReset(); // Call the onReset function passed as a prop
     setIsStreetValid(true);
     setStreetValue("");
     resetCity();
@@ -57,7 +59,6 @@ const WeatherSearchForm = ({ onSubmit }) => {
               type="text"
               disabled={autoDetect}
               required
-              autoComplete="new-password"
               value={streetValue}
               onChange={(e) => setStreetValue(e.target.value)}
               onBlur={(e) => {
@@ -125,7 +126,7 @@ const WeatherSearchForm = ({ onSubmit }) => {
             >
               <i className="bi bi-search"></i>Search
             </Button>
-            <Button variant="secondary" type="reset">
+            <Button variant="secondary" className="white-button" type="reset">
               <i className="bi bi-list-nested"></i>Clear
             </Button>
           </Container>
