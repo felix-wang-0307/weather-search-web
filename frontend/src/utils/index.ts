@@ -28,6 +28,18 @@ export function convertDate(ISODate: string): string {
   return localeString.slice(0, secondCommaIndex) + localeString.slice(secondCommaIndex + 1);
 }
 
+export function convertDate2(ISODate: string): string {
+  const date = new Date(ISODate);
+  // Transfer the ISODate to "Wednesday, Jan. 1, 2020" format
+  return date.toLocaleDateString("en-US", {weekday: "long", month: "short", day: "2-digit", year: "numeric"});
+}
+
+export function getTimeOfDay(ISODate: string): string {
+  const date = new Date(ISODate);
+  // Transfer the ISODate to "8:47 AM" format (12hr)
+  return date.toLocaleTimeString("en-US", {hour: "numeric", minute: "2-digit"});
+}
+
 export const getUserId = () => {
   let userId = localStorage.getItem('userId');
   // If no user ID is found, generate a new one and store it

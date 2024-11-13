@@ -1,0 +1,38 @@
+.go-back-button {
+  background-color: #f0f0f0;
+  color: grey;
+  border: 1px solid grey;
+  // text-decoration: underline;
+  &:hover {
+    background-color: white;
+    color: grey;
+    border: 1px solid grey;
+  }
+  i {
+    margin-right: 5px;
+    color: black;
+    font-weight: bold;
+  }
+}
+
+.tweet-button {
+  background-color: white;
+  display: flex;
+  align-items: center;
+  border: 1px solid grey;
+  padding: 0;
+  margin: 0;
+  i {
+    font-size: larger;
+    margin: 0 10px;
+    color: black;
+    font-weight: bold;
+  }
+  &:hover {
+    background-color: grey;
+    i {
+      color: white;
+    }
+    border: 1px solid white;
+  }
+}

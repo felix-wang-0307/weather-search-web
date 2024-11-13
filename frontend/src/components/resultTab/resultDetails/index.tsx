@@ -5,7 +5,7 @@ import { Container } from "react-bootstrap";
 import { AppContext } from "../../../appContext";
 
 export default function ResultDetails({ goBackToContent, detailDate }) {
-  const weatherData = useContext(AppContext)[1];
+  const [{ city = "", state = "" }, weatherData] = useContext(AppContext);
   const dailyWeather = weatherData.timelines?.find(
     (timeline) => timeline.timestep === "1d"
   );
@@ -15,8 +15,16 @@ export default function ResultDetails({ goBackToContent, detailDate }) {
 
   return (
     <Container>
-      <DetailHeader goBackToContent={goBackToContent} detailDate={detailDate} />
-      {dayWeather && <DayWeatherTable dayWeather={dayWeather} />}
+      {dayWeather && (
+        <>
+          <DetailHeader
+            goBackToContent={goBackToContent}
+            dayWeather={dayWeather}
+            cityInfo={{ city, state }}
+          />
+          <DayWeatherTable dayWeather={dayWeather} />
+        </>
+      )}
     </Container>
   );
 }
