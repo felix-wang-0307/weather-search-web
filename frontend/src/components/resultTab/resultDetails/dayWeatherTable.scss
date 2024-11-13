@@ -1,0 +1,16 @@
+
+.day-weather-table-row {
+  border-bottom: 1px solid #cbcbcb;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  > :first-child {
+    // make the first column bold
+    font-weight: bold;
+  }
+  &:nth-child(1) {
+    border-top: 1px solid #cbcbcb;
+  }
+  &:nth-child(odd) {
+    background-color: #f0f0f0;
+  }
+}
