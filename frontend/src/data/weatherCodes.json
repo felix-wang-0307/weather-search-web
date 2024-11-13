@@ -1,0 +1,98 @@
+{
+    "0": {
+        "desc": "Unknown",
+        "icon": "/images/weather_symbols/unknown.svg"
+    },
+    "1000": {
+        "desc": "Clear",
+        "icon": "/images/weather_symbols/clear_day.svg"
+    },
+    "1100": {
+        "desc": "Mostly Clear",
+        "icon": "/images/weather_symbols/mostly_clear_day.svg"
+    },
+    "1101": {
+        "desc": "Partly Cloudy",
+        "icon": "/images/weather_symbols/partly_cloudy_day.svg"
+    },
+    "1102": {
+        "desc": "Mostly Cloudy",
+        "icon": "/images/weather_symbols/mostly_cloudy.svg"
+    },
+    "1001": {
+        "desc": "Cloudy",
+        "icon": "/images/weather_symbols/cloudy.svg"
+    },
+    "2000": {
+        "desc": "Fog",
+        "icon": "/images/weather_symbols/fog.svg"
+    },
+    "2100": {
+        "desc": "Light Fog",
+        "icon": "/images/weather_symbols/fog_light.svg"
+    },
+    "4000": {
+        "desc": "Drizzle",
+        "icon": "/images/weather_symbols/drizzle.svg"
+    },
+    "4001": {
+        "desc": "Rain",
+        "icon": "/images/weather_symbols/rain.svg"
+    },
+    "4200": {
+        "desc": "Light Rain",
+        "icon": "/images/weather_symbols/rain_light.svg"
+    },
+    "4201": {
+        "desc": "Heavy Rain",
+        "icon": "/images/weather_symbols/rain_heavy.svg"
+    },
+    "5000": {
+        "desc": "Snow",
+        "icon": "/images/weather_symbols/snow.svg"
+    },
+    "5001": {
+        "desc": "Flurries",
+        "icon": "/images/weather_symbols/flurries.svg"
+    },
+    "5100": {
+        "desc": "Light Snow",
+        "icon": "/images/weather_symbols/snow_light.svg"
+    },
+    "5101": {
+        "desc": "Heavy Snow",
+        "icon": "/images/weather_symbols/snow_heavy.svg"
+    },
+    "6000": {
+        "desc": "Freezing Drizzle",
+        "icon": "/images/weather_symbols/freezing_drizzle.svg"
+    },
+    "6001": {
+        "desc": "Freezing Rain",
+        "icon": "/images/weather_symbols/freezing_rain.svg"
+    },
+    "6200": {
+        "desc": "Light Freezing Rain",
+        "icon": "/images/weather_symbols/freezing_rain_light.svg"
+    },
+    "6201": {
+        "desc": "Heavy Freezing Rain",
+        "icon": "/images/weather_symbols/freezing_rain_heavy.svg"
+    },
+    "7000": {
+        "desc": "Ice Pellets",
+        "icon": "/images/weather_symbols/ice_pellets.svg"
+    },
+    "7101": {
+        "desc": "Heavy Ice Pellets",
+        "icon": "/images/weather_symbols/ice_pellets_heavy.svg"
+    },
+    "7102": {
+        "desc": "Light Ice Pellets",
+        "icon": "/images/weather_symbols/ice_pellets_light.svg"
+    },
+    "8000": {
+        "desc": "Thunderstorm",
+        "icon": "/images/weather_symbols/thunderstorm.svg"
+    }
+}
