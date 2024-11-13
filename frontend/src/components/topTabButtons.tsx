@@ -1,3 +1,7 @@
+/**
+ * @file topTabButtons.tsx is a component that renders the top tab buttons for the app.
+ * The tabs are "Results" and "Favorites".
+ */
 import React, { useState, forwardRef, useImperativeHandle } from "react";
 import { Button, Container } from "react-bootstrap";
 import "./topTabButtons.scss";

@@ -1,7 +1,9 @@
-import React, { useState, useCallback, useMemo, useRef } from 'react';
+import React, { useState, useCallback, useRef } from 'react';
 import { ContentTabs } from './contentTabs';
-import { Container, Button } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import DayView from './dayView';
+import { DailyTempChart } from './dailyTempChart';
+import MeteogramChart from './meteogramChart';
 
 export default function ResultContent() {
   const tabRef = useRef<{ getActiveTab: () => string }>(null);
@@ -19,8 +21,8 @@ export default function ResultContent() {
       </Container>
       <Container fluid>
         {activeTab === 'day' && <DayView />}
-        {activeTab === 'chart' && <div>Daily Temp. Chart</div>}
-        {activeTab === 'meteogram' && <div>Meteogram</div>}
+        {activeTab === 'chart' && <DailyTempChart />}
+        {activeTab === 'meteogram' && <MeteogramChart />}
       </Container>
     </>
   );
