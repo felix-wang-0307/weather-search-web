@@ -1,5 +1,5 @@
 import { AppContext } from "../../appContext";
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useMemo } from "react";
 import { Button, Container } from "react-bootstrap";
 import {
   getFavorites,
@@ -10,9 +10,20 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "./resultHeader.scss";
 import { ICityInfo } from "@/types";
 
-export const ResultHeader = ({ goToDetails }) => {
-  const { city, state } = useContext(AppContext)[0];
+interface IResultHeaderProps {
+  goToDetails: (date: string) => void;
+}
+
+export const ResultHeader = ({ goToDetails }: IResultHeaderProps) => {
+  const [{ city, state }, weatherData] = useContext(AppContext);
   const [isFavorite, setIsFavorite] = React.useState(false);
+
+  const firstDay = useMemo(() => {
+    const dailyWeather = weatherData.timelines?.find((timeline) => {
+      return timeline.timestep === "1d";
+    });
+    return dailyWeather?.intervals[0].startTime;
+  }, [weatherData]);
 
   useEffect(() => {
     getFavorites().then((favorites) => {
@@ -71,7 +82,11 @@ export const ResultHeader = ({ goToDetails }) => {
             ></i>
           )}
         </Button>
-        <Button variant="light" className="go-to-detail" onClick={goToDetails}>
+        <Button
+          variant="light"
+          className="go-to-detail"
+          onClick={() => firstDay && goToDetails(firstDay)}
+        >
           <span>Details</span>
           <i className="bi bi-chevron-right"></i>
         </Button>

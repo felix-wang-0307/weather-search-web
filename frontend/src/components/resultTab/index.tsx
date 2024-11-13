@@ -8,8 +8,10 @@ import "./index.scss";
 export default function ResultTab() {
   const [page, setPage] = useState<"content" | "details">("content");
   const [animation, setAnimation] = useState("");
+  const [detailDate, setDetailDate] = useState("");  // ISO date string
 
-  const goToDetails = () => {
+  const goToDetails = (date: string) => {
+    setDetailDate(date);
     setAnimation("slide-out-left");
     setTimeout(() => {
       setPage("details");
@@ -27,14 +29,12 @@ export default function ResultTab() {
 
   return (
     <Container>
-      <div>
-        <div className={page === "content" ? animation : "hide"}>
-          <ResultHeader goToDetails={goToDetails} />
-          <ResultContent />
-        </div>
-        <div className={page === "details" ? animation : "hide"}>
-          <ResultDetails goBackToContent={goBackToContent} />
-        </div>
+      <div className={page === "content" ? animation : "hide"}>
+        <ResultHeader goToDetails={(date) => goToDetails(date)} />
+        <ResultContent />
+      </div>
+      <div className={page === "details" ? animation : "hide"}>
+        <ResultDetails goBackToContent={goBackToContent} detailDate={detailDate}/>
       </div>
     </Container>
   );
