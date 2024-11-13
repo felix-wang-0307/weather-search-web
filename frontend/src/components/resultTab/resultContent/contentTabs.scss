@@ -5,6 +5,8 @@
   border-bottom: 1px solid #cbcbcb;
   border-radius: 5px 5px 0 0;
   transition: none;
+  z-index: 999;
+  margin-bottom: -1px;
 }
 
 .tab-button:hover {
@@ -15,4 +17,5 @@
   color: #0e0e0e;
   border: 1px solid #cbcbcb;
   border-bottom: 1px solid #ffffff;
+  margin-bottom: -1px;
 }

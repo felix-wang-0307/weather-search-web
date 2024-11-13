@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useImperativeHandle, forwardRef } from "react";
 import { Container } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import "./contentTabs.scss";
@@ -15,12 +15,22 @@ const TabButton = ({ isActive, onClick, children }) => {
   );
 };
 
-export const ContentTabs = () => {
+interface IContentTabProps {
+  onTabChange: (tab: string) => void;
+}
+
+export const ContentTabs = forwardRef((props: IContentTabProps, ref) => {
   const [activeTab, setActiveTab] = useState("day");
+  const { onTabChange } = props;
 
   const handleTabClick = (tab: "day" | "chart" | "meteogram") => {
     setActiveTab(tab);
+    onTabChange(tab);
   };
+
+  useImperativeHandle(ref, () => ({
+    getActiveTab: () => activeTab,
+  }));
 
   return (
     <>
@@ -44,4 +54,4 @@ export const ContentTabs = () => {
       </TabButton>
     </>
   );
-};
+});
