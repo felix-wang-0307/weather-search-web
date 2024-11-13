@@ -4,7 +4,6 @@ import useStateSelect from "../hooks/useStateSelect";
 import { useCityAutoComplete } from "../hooks/useCityAutoComplete";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./weatherSearchForm.scss";
-import { on } from "events";
 
 const WeatherSearchForm = ({ onSubmit, onReset }) => {
   const [streetValue, setStreetValue] = useState("");
@@ -17,13 +16,13 @@ const WeatherSearchForm = ({ onSubmit, onReset }) => {
   } = useCityAutoComplete();
   const { cityValue, isCityValid } = cityAutoCompleteProps;
   const { StateSelect, resetState, ...stateSelectProps } = useStateSelect();
-  const { stateValue, setStateValue } = stateSelectProps;
+  const { setStateValue, isStateValid } = stateSelectProps;
 
   const [autoDetect, setAutoDetect] = useState(false);
 
   const isSearchEnabled = useMemo(
-    () => (streetValue && cityValue && stateValue) || autoDetect,
-    [streetValue, cityValue, stateValue, autoDetect]
+    () => (streetValue && cityValue && isStateValid) || autoDetect,
+    [streetValue, cityValue, isStateValid, autoDetect]
   );
 
   const handleReset = () => {
