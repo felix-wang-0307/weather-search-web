@@ -11,9 +11,6 @@ import FavoriteTab from "./components/favoriteTab";
 import { Alert, Container, ProgressBar } from "react-bootstrap";
 import { deleteFavorite } from "./model/favoriteList";
 
-const BACKEND = "https://weather-search-web-571.wn.r.appspot.com/";
-console.log(BACKEND);
-
 function SimulatedProgressBar() {
   const [progress, setProgress] = useState(20);
 
