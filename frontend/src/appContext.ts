@@ -1,5 +1,5 @@
 
 import { createContext } from "react";
-import { IFormData } from "./types";
+import { IFormData, IWeatherData } from "./types";
 
-export const AppContext = createContext<IFormData>({});
+export const AppContext = createContext<[IFormData, IWeatherData]>([{}, {}]);

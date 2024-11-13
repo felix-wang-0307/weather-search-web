@@ -46,8 +46,8 @@ export interface IWeatherTimeline {
 }
 
 export interface IWeatherData {
-  timelines: IWeatherTimeline[];
-  warnings: any[];
+  timelines?: IWeatherTimeline[];
+  warnings?: any[];
 }
 
 export interface ITabRef {
