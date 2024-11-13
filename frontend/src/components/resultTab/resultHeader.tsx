@@ -10,7 +10,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 import "./resultHeader.scss";
 import { ICityInfo } from "@/types";
 
-export const ResultHeader = () => {
+export const ResultHeader = ({ goToDetails }) => {
   const { city, state } = useContext(AppContext)[0];
   const [isFavorite, setIsFavorite] = React.useState(false);
 
@@ -71,7 +71,7 @@ export const ResultHeader = () => {
             ></i>
           )}
         </Button>
-        <Button variant="light" className="go-to-detail">
+        <Button variant="light" className="go-to-detail" onClick={goToDetails}>
           <span>Details</span>
           <i className="bi bi-chevron-right"></i>
         </Button>
