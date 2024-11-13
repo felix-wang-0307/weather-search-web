@@ -3,8 +3,6 @@ runtime: nodejs20
 env_variables:
   NODE_ENV: 'production'
 
-entrypoint: npm run gc-dev
-
 handlers:
   - url: /(.*\.(js|css|png|jpg|jpeg|gif|ico|svg))$
     static_files: build/\1
@@ -14,4 +12,7 @@ handlers:
     static_files: build/index.html
     upload: build/index.html
 
+  - url: /static/media/
+    static_dir: static/media/
+    mime_type: application/font-woff2
 
