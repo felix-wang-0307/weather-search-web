@@ -11,7 +11,7 @@ import "./resultHeader.scss";
 import { ICityInfo } from "@/types";
 
 export const ResultHeader = () => {
-  const { city, state } = useContext(AppContext);
+  const { city, state } = useContext(AppContext)[0];
   const [isFavorite, setIsFavorite] = React.useState(false);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export const ResultHeader = () => {
           {isFavorite && (
             <i
               className="bi bi-star-fill"
-              style={{ color: "yellow", WebkitTextStroke: "1px #000" }}
+              // style={{ color: "#ffff54", WebkitTextStroke: "1px #000" }}
             ></i>
           )}
         </Button>

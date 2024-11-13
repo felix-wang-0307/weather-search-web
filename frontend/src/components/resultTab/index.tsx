@@ -6,7 +6,7 @@ import { Container } from 'react-bootstrap';
 import ResultContent from './resultContent';
 
 export default function ResultTab ({ searchStatus }) {
-  const { city, state } = useContext<IFormData>(AppContext);
+  const { city, state } = useContext(AppContext)[0];
 
   return (
     <Container>

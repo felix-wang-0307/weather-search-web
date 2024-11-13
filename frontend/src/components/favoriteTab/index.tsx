@@ -3,7 +3,6 @@ import { Container, Alert, Row, Col } from "react-bootstrap";
 import { getFavorites } from "../../model/favoriteList";
 import { ICityInfo } from "@/types";
 import "bootstrap-icons/font/bootstrap-icons.css";
-import "./index.scss";
 
 interface IFavoriteTabProps {
   onClickFavorite: (city: string, state: string) => Promise<void>;
@@ -21,7 +20,7 @@ const FavoriteTable = ({
 }: IFavoriteTableProps) => {
   // the table styles are defined in the App.scss file
   return (
-    <Container>
+    <Container className="table">
       <Row className="table-header">
         <Col xs={2}>#</Col>
         <Col xs={4}>City</Col>
