@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 import { fetchData } from "./model/fetchData";
 import TopTabButtons from "./components/topTabButtons";
-import { IFormData, ITabRef } from "./types";
+import { IFormData, ITabRef, IWeatherData } from "./types";
 import ResultTab from "./components/resultTab";
 import FavoriteTab from "./components/favoriteTab";
 import { Alert } from "react-bootstrap";
@@ -21,6 +21,7 @@ function App() {
   const [searchStatus, setSearchStatus] = useState<"init" | "success" | "fail">(
     "init"
   );
+  const [weatherData, setWeatherData] = useState<IWeatherData>({});
 
   const searchWeather = (formData: IFormData) => {
     fetchData(formData)
@@ -49,6 +50,12 @@ function App() {
     searchWeather(formData);
   }, []);
 
+  const resetForm = useCallback(() => {
+    setFormData({});
+    setWeatherData({});
+    setSearchStatus("init");
+  }, []);
+
   const handleTabChange = useCallback((tab: string) => {
     setActiveTab(tab);
   }, []);
@@ -65,9 +72,9 @@ function App() {
   }, []);
 
   return (
-    <AppContext.Provider value={formData}>
+    <AppContext.Provider value={[formData, weatherData]}>
       <article className="App">
-        <WeatherSearchForm onSubmit={submitForm} />
+        <WeatherSearchForm onSubmit={submitForm} onReset={resetForm}/>
         <TopTabButtons ref={topTabButtonsRef} onTabChange={handleTabChange} />
         <section className="mt-3 w-100">
           {activeTab === "results" &&

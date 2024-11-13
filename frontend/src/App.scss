@@ -10,9 +10,11 @@
 }
 
 // table styles
+.table {
+  font-family: "Roboto", sans-serif;
+}
 
-
-.table-header {
+.table-header {  
   font-weight: bold;
   padding: 10px 0;
   border-top: 1px solid #cbcbcb;
