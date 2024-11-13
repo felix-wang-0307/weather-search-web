@@ -7,12 +7,14 @@ handlers:
   - url: /(.*\.(js|css|png|jpg|jpeg|gif|ico|svg))$
     static_files: build/\1
     upload: build/.*\.(js|css|png|jpg|jpeg|gif|ico|svg)$
+  
+  - url: /static/media/
+    static_dir: build/static/media/
+    mime_type: application/font-woff2
 
   - url: /.*
     static_files: build/index.html
     upload: build/index.html
 
-  - url: /static/media/
-    static_dir: static/media/
-    mime_type: application/font-woff2
+  
 
