@@ -25,19 +25,66 @@
       <tbody>
         <tr>
           <td>
-            <a href="/weather?latitude=32.67&longitude=123.45">
+            <a href="/weather?">
               GET /weather
             </a>
           </td>
           <td>Get weather of Los Angeles</td>
         </tr>
         <tr>
-          <td>GET /weather</td>
+          <td>
+            <a href="/weather?latitude=40.71&longitude=-74.01">
+              GET /weather
+            </a>
+          </td>
           <td>Get weather of New York</td>
         </tr>
         <tr>
-          <td>GET /favorites</td>
-          <td>Get favorite list</td>
+          <td>
+            <a href="/geocoding?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA">
+              GET /geocoding
+            </a>
+          </td>
+          <td>Get geocode info of Google HQ</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="/favorites?user=testUser">
+              GET /favorites
+            </a>
+          </td>
+          <td>Get favorite cities of testUser</td>
+        </tr>
+        <tr>
+          <td>
+            <form action="/favorites" method="post">
+              <input type="hidden" name="user" value="testUser">
+              <input type="hidden" name="city" value="San Francisco">
+              <input type="hidden" name="state" value="CA">
+              <button type="submit">POST /favorites</button>
+            </form>
+          </td>
+          <td>Add San Francisco to favorites of testUser</td>
+        </tr>
+        <tr>
+          <td>
+            <form action="/favorites" method="post">
+              <input type="hidden" name="_method" value="delete">
+              <input type="hidden" name="user" value="testUser">
+              <input type="hidden" name="city" value="San Francisco">
+              <input type="hidden" name="state" value="CA">
+              <button type="submit">DELETE /favorites</button>
+            </form>
+          </td>
+          <td>Delete San Francisco from favorites of testUser</td>
+        </tr>
+        <tr>
+          <td>
+            <a href="/autocomplete?input=San">
+              GET /autocomplete
+            </a>
+          </td>
+          <td>Get autocomplete suggestions for "San"</td>
         </tr>
       </tbody>
     </table>
