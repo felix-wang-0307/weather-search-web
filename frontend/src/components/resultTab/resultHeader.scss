@@ -1,6 +1,14 @@
 button.favorite {
   font-size: 1.5rem;
   padding: 2px 10px;
+  &.is-favorite i {
+    color: #ffff54;
+    -webkit-text-stroke: 1px #000;
+  }
+  &:hover i {
+    color: #ffff54;
+    -webkit-text-stroke: 1px white;
+  }
 }
 
 button.go-to-detail {
