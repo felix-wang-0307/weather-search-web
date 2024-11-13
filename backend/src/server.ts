@@ -21,11 +21,16 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+const corsOptions = {
+  methods: ['GET', 'POST', 'DELETE', 'PUT', 'PATCH'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
 if (process.env.ENV === 'development') {
-  app.use(cors()); // Allow CORS for all hosts during development
+  app.use(cors(corsOptions)); // Allow CORS for all hosts during development
 } else {
   app.use(
-    cors({ origin: FRONTEND_URL, credentials: true })
+    cors({ origin: FRONTEND_URL, credentials: true, ...corsOptions })
   );
 }
 
