@@ -8,34 +8,54 @@ import TopTabButtons from "./components/topTabButtons";
 import { IFormData, ITabRef, IWeatherData } from "./types";
 import ResultTab from "./components/resultTab";
 import FavoriteTab from "./components/favoriteTab";
-import { Alert } from "react-bootstrap";
+import { Alert, Container, ProgressBar } from "react-bootstrap";
 import { deleteFavorite } from "./model/favoriteList";
 
 const BACKEND = "https://weather-search-web-571.wn.r.appspot.com/";
 console.log(BACKEND);
 
+function SimulatedProgressBar() {
+  const [progress, setProgress] = useState(20);
+
+  setInterval(() => {
+    setProgress((prevProgress) => {
+      if (prevProgress >= 99) {
+        return 99;
+      }
+      return prevProgress + Math.floor(Math.random() * 8);
+    });
+  }, 300);
+
+  return <ProgressBar animated now={progress} />;
+}
+
 function App() {
+  console.log("render")
   const [activeTab, setActiveTab] = useState("results");
   const topTabButtonsRef = useRef<ITabRef>(null);
   const [formData, setFormData] = useState<IFormData>({});
-  const [searchStatus, setSearchStatus] = useState<"init" | "success" | "fail">(
-    "init"
-  );
+  const [searchStatus, setSearchStatus] = useState<
+    "init" | "success" | "failed" | "processing"
+  >("init");
   const [weatherData, setWeatherData] = useState<IWeatherData>({});
 
   const searchWeather = (formData: IFormData) => {
     fetchData(formData)
       .then((data) => {
+        // Simulate a processing state
+        setSearchStatus("processing");
+        // Manipulate the data before setting it
         const refinedSearchData = {
           ...formData,
           city: data.city,
           state: data.state,
         };
         setFormData(refinedSearchData);
-        setSearchStatus("success");
+        setWeatherData(data.weather);
+        // setSearchStatus("success");
       })
       .catch(() => {
-        setSearchStatus("fail");
+        setSearchStatus("failed");
       });
   };
 
@@ -60,31 +80,42 @@ function App() {
     setActiveTab(tab);
   }, []);
 
-  const handleSelectFavorite = useCallback(async (city: string, state: string) => {
-    const formData = { city, state };
-    searchWeather(formData);  // async call
-    topTabButtonsRef.current?.setActiveTab("results");
-    setActiveTab("results");
-  }, []);
+  const handleSelectFavorite = useCallback(
+    async (city: string, state: string) => {
+      const formData = { city, state };
+      searchWeather(formData); // async call
+      topTabButtonsRef.current?.setActiveTab("results");
+      setActiveTab("results");
+    },
+    []
+  );
 
-  const handleDeleteFavorite = useCallback(async (city: string, state: string) => {
-    await deleteFavorite({ city, state });
-  }, []);
+  const handleDeleteFavorite = useCallback(
+    async (city: string, state: string) => {
+      await deleteFavorite({ city, state });
+    },
+    []
+  );
 
   return (
     <AppContext.Provider value={[formData, weatherData]}>
       <article className="App">
-        <WeatherSearchForm onSubmit={submitForm} onReset={resetForm}/>
+        <WeatherSearchForm onSubmit={submitForm} onReset={resetForm} />
         <TopTabButtons ref={topTabButtonsRef} onTabChange={handleTabChange} />
         <section className="mt-3 w-100">
           {activeTab === "results" &&
             ((searchStatus === "success" && (
               <ResultTab searchStatus={searchStatus} />
             )) ||
-              (searchStatus === "fail" && (
+              (searchStatus === "failed" && (
                 <Alert variant="danger" className="container">
                   An error occurred. Please try again later.
                 </Alert>
+              )) ||
+              (searchStatus === "processing" && (
+                <Container>
+                  <SimulatedProgressBar />
+                </Container>
               )))}
           {activeTab === "favorites" && (
             <FavoriteTab
