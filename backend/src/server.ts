@@ -1,6 +1,7 @@
 import express from "express";
 import cors from "cors";
 import * as dotenv from "dotenv";
+import bodyParser from "body-parser";
 import {
   getWeather,
   getGeocode,
@@ -16,6 +17,9 @@ const BACKEND_URL = "https://weather-search-web-571.wn.r.appspot.com";
 dotenv.config();
 
 const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 if (process.env.ENV === 'development') {
   app.use(cors()); // Allow CORS for all hosts during development
