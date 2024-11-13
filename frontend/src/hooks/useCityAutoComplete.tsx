@@ -82,7 +82,7 @@ const CityAutoComplete = ({
         <input
           {...params.inputProps}
           disabled={disabled}
-          autoComplete="new-password"  // TODO: remove later
+          // autoComplete="new-password"  // TODO: remove later
           type="text"
           className={`form-control ${!isCityValid ? "is-invalid" : ""}`}
         />

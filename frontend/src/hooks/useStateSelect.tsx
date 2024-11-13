@@ -46,7 +46,7 @@ const StateSelect = ({
         <input
           {...params.inputProps}
           disabled={disabled}
-          autoComplete="new-password"
+          // autoComplete="new-password"
           placeholder="Select a state"
           type="text"
           className={`form-control ${!isStateValid ? "is-invalid" : ""}`}
