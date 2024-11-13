@@ -30,7 +30,6 @@ function SimulatedProgressBar() {
 }
 
 function App() {
-  console.log("render")
   const [activeTab, setActiveTab] = useState("results");
   const topTabButtonsRef = useRef<ITabRef>(null);
   const [formData, setFormData] = useState<IFormData>({});
@@ -40,10 +39,10 @@ function App() {
   const [weatherData, setWeatherData] = useState<IWeatherData>({});
 
   const searchWeather = (formData: IFormData) => {
+    // Simulate a processing state before fetching the data
+    setSearchStatus("processing");
     fetchData(formData)
       .then((data) => {
-        // Simulate a processing state
-        setSearchStatus("processing");
         // Manipulate the data before setting it
         const refinedSearchData = {
           ...formData,
@@ -52,7 +51,7 @@ function App() {
         };
         setFormData(refinedSearchData);
         setWeatherData(data.weather);
-        // setSearchStatus("success");
+        setSearchStatus("success");
       })
       .catch(() => {
         setSearchStatus("failed");
