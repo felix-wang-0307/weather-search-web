@@ -1,5 +1,5 @@
 import { ICityInfo } from "@/types";
-import { getUserId } from "@/utils";
+import { getUserId } from "../utils";
 
 const BACKEND = "https://weather-search-web-571.wn.r.appspot.com/";
 
@@ -8,12 +8,12 @@ export async function getFavorites(): Promise<ICityInfo[]> {
   const url = `${BACKEND}favorites?user=${userId}`;
   const response = await fetch(url);
   const data = await response.json();
-  return data.data;
+  return data.data || [];
 }
 
 export async function addFavorite({ city, state }: ICityInfo): Promise<boolean> {
   const userId = getUserId();
-  const url = `${BACKEND}favorite`;
+  const url = `${BACKEND}favorites`;
   const response = await fetch(url, {
     method: "POST",
     headers: {
@@ -26,7 +26,7 @@ export async function addFavorite({ city, state }: ICityInfo): Promise<boolean> 
 
 export async function deleteFavorite({ city, state }: ICityInfo): Promise<boolean> {
   const userId = getUserId();
-  const url = `${BACKEND}favorite`;
+  const url = `${BACKEND}favorites`;
   const response = await fetch(url, {
     method: "DELETE",
     headers: {
