@@ -5,7 +5,6 @@
  * The renderCharts function is exported and called with the weeklyWeather and hourlyWeather
  * data, and it renders the temperature ranges and the hourly weather chart.
  */
-import Highcharts from 'highcharts';
 import { Meteogram } from "./meteogram.js";
 
 export function getTempRangeOptions(weeklyWeather) {
