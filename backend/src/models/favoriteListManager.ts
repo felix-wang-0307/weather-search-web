@@ -1,5 +1,5 @@
 import { client } from './mongoDbClient'
-import { Collection } from 'mongodb';
+import { Collection, UpdateResult, InsertOneResult } from 'mongodb';
 
 interface IFavoriteList {
   userId: string;
@@ -18,16 +18,20 @@ export class FavoriteListManager {
     return favoriteList;
   }
 
-  async addFavorite(userId: string, city: string, state: string): Promise<void> {
+  async addFavorite(userId: string, city: string, state: string): Promise<boolean> {
     const favoriteList = await this.getFavoriteList(userId);
+    let result: InsertOneResult<IFavoriteList> | UpdateResult;
     if (!favoriteList) {
-      await this.collection.insertOne({ userId, cities: [{ city, state }] });
+      result = await this.collection.insertOne({ userId, cities: [{ city, state }] });
+      return result.acknowledged;
     } else {
-      await this.collection.updateOne({ userId }, { $push: { cities: { city, state } } });
+      result = await this.collection.updateOne({ userId }, { $push: { cities: { city, state } } });
+      return result.modifiedCount > 0;
     }
   }
 
-  async deleteFavorite(userId: string, city: string, state: string): Promise<void> {
-    await this.collection.updateOne({ userId }, { $pull: { cities: { city, state } } });
+  async deleteFavorite(userId: string, city: string, state: string): Promise<boolean> {
+    const result = await this.collection.updateOne({ userId }, { $pull: { cities: { city, state } } });
+    return result.modifiedCount > 0;
   }
 }

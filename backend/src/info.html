@@ -12,6 +12,10 @@
     table {
       border-collapse: collapse;
     }
+    th, td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
   </style>
 </head>
 <body>
@@ -59,8 +63,8 @@
           <td>
             <form action="/favorites" method="post">
               <input type="hidden" name="user" value="testUser">
-              <input type="hidden" name="city" value="San Francisco">
-              <input type="hidden" name="state" value="CA">
+              <input name="city" value="San Francisco">
+              <input name="state" value="California">
               <button type="submit">POST /favorites</button>
             </form>
           </td>
@@ -71,8 +75,8 @@
             <form action="/favorites" method="post">
               <input type="hidden" name="_method" value="delete">
               <input type="hidden" name="user" value="testUser">
-              <input type="hidden" name="city" value="San Francisco">
-              <input type="hidden" name="state" value="CA">
+              <input name="city" value="San Francisco">
+              <input name="state" value="California">
               <button type="submit">DELETE /favorites</button>
             </form>
           </td>
@@ -80,11 +84,12 @@
         </tr>
         <tr>
           <td>
-            <a href="/autocomplete?input=San">
-              GET /autocomplete
-            </a>
+            <form action="/autocomplete" method="get">
+              <input name="input" value="san">
+              <button type="submit">GET /autocomplete</button>
+            </form>
           </td>
-          <td>Get autocomplete suggestions for "San"</td>
+          <td>Get autocomplete suggestions for "san"</td>
         </tr>
       </tbody>
     </table>

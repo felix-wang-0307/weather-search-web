@@ -17,8 +17,12 @@ export const addFavorite: IController = async (req, res) => {
     city: string;
     state: string;
   };
-  await favoriteListManager.addFavorite(user, city, state);
-  res.json({ success: true });
+  try {
+    const result = await favoriteListManager.addFavorite(user, city, state);
+    res.json({ success: result });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
 };
 
 export const deleteFavorite: IController = async (req, res) => {
@@ -27,6 +31,10 @@ export const deleteFavorite: IController = async (req, res) => {
     city: string;
     state: string;
   };
-  await favoriteListManager.deleteFavorite(user, city, state);
-  res.json({ success: true });
+  try {
+    const result = await favoriteListManager.deleteFavorite(user, city, state);
+    res.json({ success: result });
+  } catch (error) {
+    res.json({ success: false, message: error.message });
+  }
 };
