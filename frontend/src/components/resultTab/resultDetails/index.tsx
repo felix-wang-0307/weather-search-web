@@ -3,9 +3,10 @@ import DetailHeader from "./detailHeader";
 import DayWeatherTable from "./dayWeatherTable";
 import { Container } from "react-bootstrap";
 import { AppContext } from "../../../appContext";
+import DayWeatherMap from "./dayWeatherMap";
 
 export default function ResultDetails({ goBackToContent, detailDate }) {
-  const [{ city = "", state = "" }, weatherData] = useContext(AppContext);
+  const [{ city = "", state = "" }, weatherData, geocodingData] = useContext(AppContext);
   const dailyWeather = weatherData.timelines?.find(
     (timeline) => timeline.timestep === "1d"
   );
@@ -23,6 +24,7 @@ export default function ResultDetails({ goBackToContent, detailDate }) {
             cityInfo={{ city, state }}
           />
           <DayWeatherTable dayWeather={dayWeather} />
+          <DayWeatherMap geocodingData={geocodingData} />
         </>
       )}
     </Container>
