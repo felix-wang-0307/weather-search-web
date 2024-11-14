@@ -17,6 +17,7 @@
     "@types/node": "^16.18.114",
     "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.1",
+    "@vis.gl/react-google-maps": "^1.4.0",
     "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.3",
     "babel-plugin-named-asset-import": "^0.3.8",
@@ -154,6 +155,7 @@
     ]
   },
   "devDependencies": {
+    "@types/google.maps": "^3.58.1",
     "@types/uuid": "^10.0.0"
   }
 }
