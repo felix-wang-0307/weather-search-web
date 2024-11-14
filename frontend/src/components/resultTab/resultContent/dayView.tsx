@@ -11,7 +11,7 @@ const DayViewTable = ({
 }: {
   weeklyWeather: IWeatherDetails[];
 }) => {
-  const { goToDetails, goBackToContent } = useContext(SlideContext);
+  const { goToDetails } = useContext(SlideContext);
   return (
     <Container className="table">
       <Row className="table-header">

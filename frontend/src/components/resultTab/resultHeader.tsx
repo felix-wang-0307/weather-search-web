@@ -9,13 +9,11 @@ import {
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./resultHeader.scss";
 import { ICityInfo } from "@/types";
+import { SlideContext } from ".";
 
-interface IResultHeaderProps {
-  goToDetails: (date: string) => void;
-}
-
-export const ResultHeader = ({ goToDetails }: IResultHeaderProps) => {
+export const ResultHeader = () => {
   const [{ city, state }, weatherData] = useContext(AppContext);
+  const { goToDetails } = useContext(SlideContext);
   const [isFavorite, setIsFavorite] = React.useState(false);
 
   const firstDay = useMemo(() => {
@@ -75,12 +73,7 @@ export const ResultHeader = ({ goToDetails }: IResultHeaderProps) => {
           onClick={toggleFavorite}
         >
           {!isFavorite && <i className="bi bi-star"></i>}
-          {isFavorite && (
-            <i
-              className="bi bi-star-fill"
-              // style={{ color: "#ffff54", WebkitTextStroke: "1px #000" }}
-            ></i>
-          )}
+          {isFavorite && <i className="bi bi-star-fill"></i>}
         </Button>
         <Button
           variant="light"

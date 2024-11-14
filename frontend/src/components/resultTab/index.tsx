@@ -37,11 +37,11 @@ export default function ResultTab() {
     <SlideContext.Provider value={{ goToDetails, goBackToContent, detailDate }}>
       <Container>
         <div className={page === "content" ? animation : "hide"}>
-          <ResultHeader goToDetails={(date) => goToDetails(date)} />
+          <ResultHeader />
           <ResultContent />
         </div>
         <div className={page === "details" ? animation : "hide"}>
-          <ResultDetails goBackToContent={goBackToContent} detailDate={detailDate}/>
+          <ResultDetails />
         </div>
       </Container>
     </SlideContext.Provider>

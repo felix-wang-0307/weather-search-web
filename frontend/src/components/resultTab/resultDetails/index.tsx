@@ -4,9 +4,11 @@ import DayWeatherTable from "./dayWeatherTable";
 import { Container } from "react-bootstrap";
 import { AppContext } from "../../../appContext";
 import DayWeatherMap from "./dayWeatherMap";
+import { SlideContext } from "..";
 
-export default function ResultDetails({ goBackToContent, detailDate }) {
+export default function ResultDetails() {
   const [{ city = "", state = "" }, weatherData, geocodingData] = useContext(AppContext);
+  const { goBackToContent, detailDate } = useContext(SlideContext);
   const dailyWeather = weatherData.timelines?.find(
     (timeline) => timeline.timestep === "1d"
   );
