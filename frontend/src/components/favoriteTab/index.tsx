@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Container, Alert, Row, Col } from "react-bootstrap";
 import { getFavorites } from "../../model/favoriteList";
+import SimulatedProgressBar from "../../utils/progressBar";
 import { ICityInfo } from "@/types";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
@@ -73,10 +74,12 @@ export default function FavoriteTab({
   onDeleteFavorite,
 }: IFavoriteTabProps) {
   const [favorites, setFavorites] = useState<ICityInfo[]>([]);
+  const [isDataLoaded, setIsDataLoaded] = useState(false);
 
   const fetchFavorites = () => {
     getFavorites().then((favorites) => {
       setFavorites(favorites);
+      setIsDataLoaded(true);
     });
   };
 
@@ -88,11 +91,16 @@ export default function FavoriteTab({
 
   return (
     <Container>
-      {favorites.length === 0 ? (
+      {!isDataLoaded ? (
+        // Situation 1: if data is not loaded, show the progress bar
+        <SimulatedProgressBar /> 
+      ) : favorites.length === 0 ? (
+        // Situation 2: if there are no favorites, show a warning message
         <Alert variant="warning">
           <b>Sorry! </b>No records found.
         </Alert>
       ) : (
+        // Situation 3: if there are favorites, show the table
         <FavoriteTable
           favorites={favorites}
           onClickFavorite={onClickFavorite}
