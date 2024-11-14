@@ -5,7 +5,13 @@ import { useCityAutoComplete } from "../hooks/useCityAutoComplete";
 import "bootstrap-icons/font/bootstrap-icons.css";
 import "./weatherSearchForm.scss";
 
-const WeatherSearchForm = ({ onSubmit, onReset }) => {
+interface IFormProps {
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  onReset: () => void;
+  searchStatus: "init" | "success" | "failed" | "processing";
+}
+
+const WeatherSearchForm = ({ onSubmit, onReset, searchStatus }) => {
   const [streetValue, setStreetValue] = useState("");
   const [isStreetValid, setIsStreetValid] = useState(true);
   const {
@@ -20,10 +26,12 @@ const WeatherSearchForm = ({ onSubmit, onReset }) => {
 
   const [autoDetect, setAutoDetect] = useState(false);
 
-  const isSearchEnabled = useMemo(
-    () => (streetValue && cityValue && isStateValid) || autoDetect,
-    [streetValue, cityValue, isStateValid, autoDetect]
-  );
+  const isSearchEnabled = useMemo(() => {
+    return (
+      searchStatus !== "processing" &&
+      ((streetValue && cityValue && isStateValid) || autoDetect)
+    );
+  }, [searchStatus, streetValue, cityValue, isStateValid, autoDetect]);
 
   const handleReset = () => {
     onReset(); // Call the onReset function passed as a prop

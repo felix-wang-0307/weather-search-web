@@ -85,7 +85,7 @@ function App() {
   return (
     <AppContext.Provider value={[formData, weatherData, geocodingData]}>
       <article className="App">
-        <WeatherSearchForm onSubmit={submitForm} onReset={resetForm} />
+        <WeatherSearchForm onSubmit={submitForm} onReset={resetForm} searchStatus={searchStatus}/>
         <TopTabButtons ref={topTabButtonsRef} onTabChange={handleTabChange} />
         <section className="mt-3 w-100">
           {activeTab === "results" &&
