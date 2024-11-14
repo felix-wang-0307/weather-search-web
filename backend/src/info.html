@@ -72,15 +72,32 @@
         </tr>
         <tr>
           <td>
-            <form action="/favorites" method="post">
-              <input type="hidden" name="_method" value="delete">
+            <form action="/favorites" id="deleteForm">
               <input type="hidden" name="user" value="testUser">
               <input name="city" value="San Francisco">
               <input name="state" value="California">
-              <button type="submit">DELETE /favorites</button>
+              <button type="submit" onclick="deleteFavorite()">DELETE /favorites</button>
             </form>
           </td>
           <td>Delete San Francisco from favorites of testUser</td>
+          <script>
+            function deleteFavorite() {
+              const form = document.getElementById('deleteForm');
+              const formData = new FormData(form);
+          
+              fetch('/favorites', {
+                method: 'DELETE',
+                body: new URLSearchParams(formData)
+              })
+              .then(response => response.json())
+              .then(data => {
+                document.write(JSON.stringify(data));
+              })
+              .catch((error) => {
+                console.error('Error:', error);
+              });
+            }
+          </script>
         </tr>
         <tr>
           <td>

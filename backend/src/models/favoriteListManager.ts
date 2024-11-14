@@ -17,9 +17,14 @@ export class FavoriteListManager {
     const favoriteList = await this.collection.findOne({ userId });
     return favoriteList;
   }
-
   async addFavorite(userId: string, city: string, state: string): Promise<boolean> {
     const favoriteList = await this.getFavoriteList(userId);
+    if (favoriteList) {
+      const isDuplicate = favoriteList.cities.some(fav => fav.city === city && fav.state === state);
+      if (isDuplicate) {
+        return false; // Duplicate entry found
+      }
+    }
     let result: InsertOneResult<IFavoriteList> | UpdateResult;
     if (!favoriteList) {
       result = await this.collection.insertOne({ userId, cities: [{ city, state }] });
