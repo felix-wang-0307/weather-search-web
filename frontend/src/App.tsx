@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./App.scss";
 import { fetchData } from "./model/fetchData";
 import TopTabButtons from "./components/topTabButtons";
-import { IFormData, ITabRef, IWeatherData } from "./types";
+import { IFormData, IGeocodingData, ITabRef, IWeatherData } from "./types";
 import ResultTab from "./components/resultTab";
 import FavoriteTab from "./components/favoriteTab";
 import { Alert, Container, ProgressBar } from "react-bootstrap";
@@ -34,6 +34,7 @@ function App() {
     "init" | "success" | "failed" | "processing"
   >("init");
   const [weatherData, setWeatherData] = useState<IWeatherData>({});
+  const [geocodingData, setGeocodingData] = useState({} as IGeocodingData);
 
   const searchWeather = (formData: IFormData) => {
     // Simulate a processing state before fetching the data
@@ -49,6 +50,7 @@ function App() {
         };
         setFormData(refinedSearchData);
         setWeatherData(data.weather);
+        setGeocodingData(data.geocoding);
         setSearchStatus("success");
       })
       .catch(() => {
@@ -95,7 +97,7 @@ function App() {
   );
 
   return (
-    <AppContext.Provider value={[formData, weatherData]}>
+    <AppContext.Provider value={[formData, weatherData, geocodingData]}>
       <article className="App">
         <WeatherSearchForm onSubmit={submitForm} onReset={resetForm} />
         <TopTabButtons ref={topTabButtonsRef} onTabChange={handleTabChange} />

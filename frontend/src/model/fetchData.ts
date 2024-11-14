@@ -7,20 +7,22 @@ export async function fetchData(formData: IFormData): Promise<{
 	city: string;
 	state: string;
 	weather: IWeatherData;
+  geocoding: IGeocodingData;
 }> {
   const { autoDetect } = formData;
   if (autoDetect) {
     // Fetch the user's location based on their IP address
-    const { latitude, longitude, locationString } = await fetchIpInfo();
+    const geocoding = await fetchIpInfo();
+    const { locationString, latitude, longitude } = geocoding;
     const weather = await fetchWeather(latitude, longitude);
-    return { ...extractCityState(locationString), weather };
+    return { ...extractCityState(locationString), weather, geocoding };
   } else {
     // Fetch the user's location based on the form input
     const geocoding = await fetchGeocoding(formData);
-    // Destructure the latitude, longitude, and formatted_address properties from the geocoding object
+    // Destructure the latitude, longitude, and formattedAddress properties from the geocoding object
     const { latitude, longitude, formattedAddress } = geocoding;
     const weather = await fetchWeather(latitude, longitude);
-    return { ...extractCityState(formattedAddress), weather };
+    return { ...extractCityState(formattedAddress), weather, geocoding };
   }
 }
 
