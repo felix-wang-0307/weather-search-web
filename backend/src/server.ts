@@ -45,6 +45,14 @@ app.post("/favorites", addFavorite);
 app.delete("/favorites", deleteFavorite);
 app.get("/autocomplete", getAutoComplete);
 
+app.get("/google-maps-api-key", (req, res) => {
+  if (req.headers.origin === FRONTEND_URL) {
+    res.json({ apiKey: process.env.GOOGLE_MAPS_API_KEY_2 });
+  } else {
+    res.status(403).json({ error: "Forbidden", message: "Invalid origin" });
+  }
+});
+
 const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server listening on port ${PORT}...`);
