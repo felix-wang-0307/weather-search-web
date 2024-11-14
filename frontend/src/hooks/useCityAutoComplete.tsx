@@ -12,11 +12,11 @@ const useCityAutoComplete = () => {
 
   // Debounce the input change to reduce the number of API calls
   const debouncedFetchCityOptions = useCallback(
-    debounce((input) => {
+    (cityValue: string) => debounce((input) => {
       getAutoCompleteList(input).then((data) => {
         setCityOptions(data);
       });
-    }, 300),
+    }, 300)(cityValue),
     []
   );
 

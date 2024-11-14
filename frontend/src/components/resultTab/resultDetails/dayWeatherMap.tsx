@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react';
-import { Alert, Container } from 'react-bootstrap';
+import React from 'react';
+import { Alert } from 'react-bootstrap';
 import { Map, AdvancedMarker, useApiIsLoaded } from '@vis.gl/react-google-maps';
 
 export default function DayWeatherMap({ geocodingData }) {
