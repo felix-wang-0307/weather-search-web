@@ -10,6 +10,16 @@ A web based weather search app.
 1. Create two separated projects for front-end and back-end on some cloud platforms (e.g. Google Cloud)
 2. Install Node.js on your computer
 
+## Front-end
+1. Open your terminal and change the working directory to the `frontend` folder
+2. Run `npm install` to install the dependencies (e.g. React) according to `package.json`
+3. Run `npm run start` to start the front-end server
+4. Visit `http://localhost:3000` to see the locally deployed front-end
+5. Run `npm run build` to build the front-end project before deploying it to the cloud platform
+6. Deploy the front-end project to the cloud platform or locally
+- For Google Cloud, you can use `gcloud app deploy` to deploy the front-end project
+- For Local, you can use `serve -s build` to deploy the front-end project
+
 ## Back-end
 1. Open your terminal and change the working directory to the `backend` folder
 2. Create a `.env` file in the `backend` folder and add the following content:
@@ -28,9 +38,10 @@ Remember to replace `your_frontend_url`, `your_tomorrow_api_key`, `your_mongodb_
 4. Run `tsc` or `npm run build` to compile TypeScript files to JavaScript files
 5. Check if `dist` folder is created and contains compiled JavaScript files
 6. Run `npm run start` to start the back-end server
+7. Visit `http://localhost:8080` to see the locally deployed back-end
 - For Google Cloud, you can use `gcloud app deploy` to deploy the front-end project
 
-# How to get the API keys and 
+## How to get the API keys
 1. Get the API key from Tomorrow.io by signing up at https://www.tomorrow.io/weather-api/
 2. Get the API key from Google Maps by signing up at https://developers.google.com/maps/documentation/javascript/get-api-key
 3. Get the API key from IPinfo by signing up at https://ipinfo.io/account/home
@@ -40,12 +51,5 @@ Remember to replace `your_frontend_url`, `your_tomorrow_api_key`, `your_mongodb_
 2. Create a new cluster and a new database in MongoDB Atlas
 3. Add the IP address of your computer to the IP whitelist in MongoDB Atlas
 
-## Front-end
-1. Open your terminal and change the working directory to the `frontend` folder
-2. Run `npm install` to install the dependencies (e.g. React) according to `package.json`
-3. Run `npm run build` to build the project before your local or cloud deployment
-4. Run `npm run start` to start the front-end server
-5. Visit `http://localhost:3000` to see the locally deployed front-end
-6. Deploy the front-end project to the cloud platform
-- For Google Cloud, you can use `gcloud app deploy` to deploy the front-end project
+
 
