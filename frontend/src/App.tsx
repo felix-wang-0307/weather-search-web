@@ -26,6 +26,7 @@ function App() {
     // Simulate a processing state before fetching the data
     setSearchStatus("processing");
     setActiveTab("results");
+    topTabButtonsRef.current?.setActiveTab("results");
     fetchData(formData)
       .then((data) => {
         // Manipulate the data before setting it
