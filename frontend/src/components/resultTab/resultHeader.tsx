@@ -61,7 +61,7 @@ export const ResultHeader = () => {
     <Container>
       <Container className="d-flex justify-content-center">
         <h3 className="title">
-          Forecast at {city ? `${city} ,` : ""}{state}
+          Forecast at {city ? `${city}, ` : ""}{state}
         </h3>
       </Container>
       <Container className="mt-3 d-flex justify-content-end">
