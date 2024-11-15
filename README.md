@@ -23,6 +23,9 @@ A web based weather search app.
 FRONTEND_URL=your_frontend_url
 TOMORROW_API_KEY=your_tomorrow_api_key
 MONGODB_URI=your_mongodb_uri
+GOOGLE_MAPS_API_KEY=your_google_map_api_key
+IPINFO_TOKEN=your_ipinfo_token
+FRONTEND_URL=https://weather-search-frontend-571.wm.r.appspot.com or your_frontend_url
 ```
 3. Run `npm install` to install the dependencies (e.g. Express) according to `package.json`
 4. Use `tsc` or `npm run build` to compile TypeScript files to JavaScript files
