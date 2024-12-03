@@ -3,7 +3,7 @@
 
 **Back-end Endpoint: https://weather-search-web-571.wm.r.appspot.com/**
 
-**Prototyping Version: **
+**Prototype Version (A simple version of this app): [GitHub](https://github.com/felix-wang-0307/simple-weather-search) | [Deploy](https://hypnotic-maker-435700-v2.wl.r.appspot.com/index.html)**
 
 A web based weather search app: provide weather information for any location in the world. The app allows users to search for weather information by city name, or current location. The app displays the current weather, hourly weather, and daily weather for the searched location. The app also provides a map with the location of the searched location and the user's current location. The app is responsive and can be used on **desktop**, **tablet** and **mobile** devices.
 
