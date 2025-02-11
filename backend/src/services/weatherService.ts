@@ -22,9 +22,10 @@ function isValidLongitude(longitude: string): boolean {
 
 export async function fetchWeatherData(
   latitude: string,
-  longitude: string
+  longitude: string,
+  options: IWeatherOptions
 ): Promise<IResponse<IWeatherData>> {
-  console.log("Incoming request for weather data:", latitude, longitude);
+  // console.log("Incoming request for weather data:", latitude, longitude);
   if (!isValidLatitude(latitude) || !isValidLongitude(longitude)) {
     return {
       success: false,
@@ -56,10 +57,13 @@ export async function fetchWeatherData(
       "moonPhase",
       "cloudCover",
     ].join(","),
-    units: "imperial",
+    units: options.units || "metric",
     timesteps: ["current", "1h", "1d"].join(","),
-    timezone: "America/Los_Angeles",
   });
+
+  if (options.timezone) {
+    params.set("timezone", options.timezone);
+  }
 
   try {
     const response = await fetch(`${WEATHER_API}?${params}`);
@@ -67,7 +71,23 @@ export async function fetchWeatherData(
       throw new Error("Failed to fetch weather data from primary API key");
     }
     const data = await response.json();
-    return { success: true, data: data.data };
+
+    // TODO: Remove the following code
+    // const address = await getGeocodeInfo(`${latitude},${longitude}`).then(
+    //   (response) => response.data?.formattedAddress
+    // );
+    // const city = address?.split(",")[1];
+    // // @ts-ignore
+    // data.city = city;
+
+    // END OF TODO
+
+    return {
+      success: true,
+      data: data.data,
+      // message:
+      //   "The fields are imperial units, and the time zone is hardcoded as America/Los_Angeles.",
+    };
   } catch (error) {
     console.error(
       "Failed to fetch weather data from primary API key, trying failover",
@@ -81,8 +101,23 @@ export async function fetchWeatherData(
       if (!response.ok) {
         throw new Error("Failed to fetch weather data from failover API key");
       }
-      const data = await response.json();
-      return { success: true, data: data.data };
+      const data: IWeatherData = await response.json().then((data) => data.data);
+
+      // TODO: Remove the following code
+      // const address = await getGeocodeInfo(`${latitude},${longitude}`).then(
+      //   (response) => response.data?.formattedAddress
+      // );
+      // const city = address?.split(",")[1];
+      // // @ts-ignore
+      // data.city = city;
+
+      // END OF TODO
+      return {
+        success: true,
+        data,
+        message:
+          "Data fetched from failover API key. The fields are imperial units, and the time zone is hardcoded as America/Los_Angeles.",
+      };
     } catch (failoverError) {
       console.error(
         "Failed to fetch weather data from failover API key",

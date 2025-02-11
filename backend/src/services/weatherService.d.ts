@@ -2,6 +2,7 @@ interface IResponse<T = any> {
   success: boolean;
   data?: T;
   error?: string;
+  message?: string;
   statusCode?: number;
 }
 
@@ -46,3 +47,7 @@ interface IWeatherData {
   warnings: any[];
 }
 
+interface IWeatherOptions {
+  units: "imperial" | "metric";
+  timezone: string;
+}
