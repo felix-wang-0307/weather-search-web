@@ -3,11 +3,11 @@
 # config files of Node.js
 .env
 config
-# scripts
+scripts
 
 # dependencies
 /node_modules
-package-lock.json
+# package-lock.json
 /.pnp
 .pnp.js
 
