@@ -3,7 +3,7 @@
 # config files of Node.js
 .env
 config
-scripts
+# scripts
 
 # dependencies
 /node_modules
