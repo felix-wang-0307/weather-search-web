@@ -1,18 +1,22 @@
 # weather-search-web
 **Application Front-end Website: https://weather-search-frontend-571.wm.r.appspot.com/**
 
+**Back-end Endpoint: https://weather-search-web-571.wm.r.appspot.com/**
+
+**Prototype Version (A simple version of this app): [GitHub](https://github.com/felix-wang-0307/simple-weather-search) | [Deploy](https://hypnotic-maker-435700-v2.wl.r.appspot.com/index.html)**
+
 A web based weather search app: provide weather information for any location in the world. The app allows users to search for weather information by city name, or current location. The app displays the current weather, hourly weather, and daily weather for the searched location. The app also provides a map with the location of the searched location and the user's current location. The app is responsive and can be used on **desktop**, **tablet** and **mobile** devices.
 
 ## Technologies
 - Front-end: [React](https://react.dev/), [Bootstrap](https://getbootstrap.com/), [Material-UI](https://material-ui.com/), [Highcharts](https://www.highcharts.com/);
 - Back-end: Node.js, [Express.js](https://expressjs.com/), [MongoDB](https://www.mongodb.com/), [Tomorrow.io API](https://www.tomorrow.io/), [Google Maps API](https://developers.google.com/maps/documentation/javascript/overview), [IPinfo API](https://ipinfo.io/).
 
-# How to Run and Deploy
-## Prerequisites
+## Run and Deploy
+### Prerequisites
 1. Create two separated projects for front-end and back-end on some cloud platforms (e.g. Google Cloud)
 2. Install Node.js on your computer
 
-## Front-end
+### Front-end
 1. Open your terminal and change the working directory to the `frontend` folder
 2. Run `npm install` to install the dependencies (e.g. React) according to `package.json`
 3. Run `npm run start` to start the front-end server
@@ -22,7 +26,7 @@ A web based weather search app: provide weather information for any location in 
 - For Google Cloud, you can use `gcloud app deploy` to deploy the front-end project
 - For Local, you can use `serve -s build` to deploy the front-end project
 
-## Back-end
+### Back-end
 1. Open your terminal and change the working directory to the `backend` folder
 2. Create a `.env` file in the `backend` folder and add the following content:
 ```
@@ -43,12 +47,12 @@ Remember to replace `your_frontend_url`, `your_tomorrow_api_key`, `your_mongodb_
 7. Visit `http://localhost:8080` to see the locally deployed back-end
 - For Google Cloud, you can use `gcloud app deploy` to deploy the front-end project
 
-## How to get the API keys
+### How to get the API keys
 1. Get the API key from Tomorrow.io by signing up at https://www.tomorrow.io/weather-api/
 2. Get the API key from Google Maps by signing up at https://developers.google.com/maps/documentation/javascript/get-api-key
 3. Get the API key from IPinfo by signing up at https://ipinfo.io/account/home
 
-## How to get MongoDB URI
+### How to get MongoDB URI
 1. Get the MongoDB URI from MongoDB Atlas by signing up at https://www.mongodb.com/cloud/atlas
 2. Create a new cluster and a new database in MongoDB Atlas
 3. Add the IP address of your computer to the IP whitelist in MongoDB Atlas
