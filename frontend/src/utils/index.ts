@@ -41,13 +41,14 @@ export function getTimeOfDay(ISODate: string): string {
 }
 
 export const getUserId = () => {
-  let userId = localStorage.getItem('userId');
-  // If no user ID is found, generate a new one and store it
-  if (!userId) {
-    userId = uuidv4();  // Generate a unique identifier
-    localStorage.setItem('userId', userId);
-  }
-  return userId;
+  return "TEST_USER_ID";  // TODO: change this to the following lines after testing
+  // let userId = localStorage.getItem('userId');
+  // // If no user ID is found, generate a new one and store it
+  // if (!userId) {
+  //   userId = uuidv4();  // Generate a unique identifier
+  //   localStorage.setItem('userId', userId);
+  // }
+  // return userId;
 };
 
 export const stateToAbbreviation = (stateName: string): string => {
