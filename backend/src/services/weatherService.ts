@@ -57,7 +57,6 @@ export async function fetchWeatherData(
       "moonPhase",
       "cloudCover",
     ].join(","),
-    units: options.units || "metric",
     timesteps: ["current", "1h", "1d"].join(","),
   });
 
@@ -67,26 +66,24 @@ export async function fetchWeatherData(
 
   try {
     const response = await fetch(`${WEATHER_API}?${params}`);
-    if (!response.ok) {
-      throw new Error("Failed to fetch weather data from primary API key");
-    }
+    
     const data = await response.json();
 
     // TODO: Remove the following code
-    // const address = await getGeocodeInfo(`${latitude},${longitude}`).then(
-    //   (response) => response.data?.formattedAddress
-    // );
-    // const city = address?.split(",")[1];
-    // // @ts-ignore
-    // data.city = city;
+    const address = await getGeocodeInfo(`${latitude},${longitude}`).then(
+      (response) => response.data?.formattedAddress
+    );
+    const city = address?.split(",")[1];
+    // @ts-ignore
+    data.city = city;
 
     // END OF TODO
 
     return {
       success: true,
-      data: data.data,
-      // message:
-      //   "The fields are imperial units, and the time zone is hardcoded as America/Los_Angeles.",
+      data: data.data || data,
+      message:
+        "The fields are imperial units, and the time zone is hardcoded as America/Los_Angeles.",
     };
   } catch (error) {
     console.error(
@@ -98,10 +95,7 @@ export async function fetchWeatherData(
 
     try {
       const response = await fetch(`${WEATHER_API}?${params}`);
-      if (!response.ok) {
-        throw new Error("Failed to fetch weather data from failover API key");
-      }
-      const data: IWeatherData = await response.json().then((data) => data.data);
+      const data = await response.json();
 
       // TODO: Remove the following code
       // const address = await getGeocodeInfo(`${latitude},${longitude}`).then(
@@ -114,7 +108,7 @@ export async function fetchWeatherData(
       // END OF TODO
       return {
         success: true,
-        data,
+        data: data.data || data,
         message:
           "Data fetched from failover API key. The fields are imperial units, and the time zone is hardcoded as America/Los_Angeles.",
       };
